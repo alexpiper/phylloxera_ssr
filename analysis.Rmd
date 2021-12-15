@@ -1,0 +1,393 @@
+---
+title: "analysis"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Load packages
+
+```{R}
+#Set required packages
+.cran_packages <- c(
+  "devtools",
+  "ggplot2",
+  "gridExtra",
+  "tidyverse", 
+  "vroom",
+  "patchwork"
+  )
+
+.bioc_packages <- c(
+  "Biostrings"
+  )
+
+.inst <- .cran_packages %in% installed.packages()
+if(any(!.inst)) {
+   install.packages(.cran_packages[!.inst])
+}
+.inst <- .bioc_packages %in% installed.packages()
+if(any(!.inst)) {
+  if (!requireNamespace("BiocManager", quietly = TRUE)){
+    install.packages("BiocManager")
+  }
+  BiocManager::install(.bioc_packages[!.inst], ask = F)
+}
+
+#Load all published packages
+sapply(c(.cran_packages,.bioc_packages), require, character.only = TRUE)
+
+```
+
+# characterise all microsatts with PERF
+
+
+```{bash}
+# SETUP 
+# install the required tools within a virtual enviornemnt
+module purge
+module load Python/3.8.2-GCCcore-9.3.0
+virtualenv ~/microsat
+source ~/microsat/bin/activate
+
+#Install PERF
+# Download the git repo
+git clone https://github.com/RKMlab/perf.git
+cd perf
+python setup.py install
+pip install numpy
+
+# Run perf of phylloxera reference genome
+cd /group/pathogens/Alexp/microsat
+PERF -i /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta \
+--min-length 12 --min-motif-size 1 --max-motif-size 10 \
+-g /group/pathogens/Alexp/genomes/phylloxera/OGS3.2_20180216.gff3 --up-promoter 1000 --down-promoter 1000 \
+-o PERF_output.tsv -a
+
+```
+
+# Characterise all microsats with TRF
+
+See: https://github.com/HipSTR-Tool/HipSTR-references/blob/master/mouse/mouse_reference.md
+```{bash}
+# Download necessary scripts
+git clone https://github.com/HipSTR-Tool/HipSTR-references.git
+cd HipSTR-references
+
+# use Tandem Repeats Finder to identify repeats
+chmod 755 trf409.legacylinux64
+chmod 755 scripts/run_TRF.sh
+
+mkdir dv
+./scripts/run_TRF.sh /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta dv/trf_results 5
+
+
+# filter out repeats with a period longer than 6 and fix a few issues with incorrect TRF entries
+module purge
+module load Python/2.7.15-foss-2018b
+mkdir dv/fixed_trf_results/
+python scripts/fix_trf_output.py dv/trf_results/Dv_genome_V4.0.fasta dv/fixed_trf_results/Dv_genome_V4.0.fasta
+
+
+# filter out repeats with a period longer than 6 and fix a few issues with incorrect TRF entries:
+    echo scripts/fix_trf_output.py mm10/trf_results/chr$chrom.fa mm10/fixed_trf_results/chr$chrom.fa
+
+```
+
+# Plot perf results
+
+- Pie chart of repeat sequence length
+
+- Line plot of repeat sequence length vs abundance
+
+```{r perf plotting}
+perf_res <- vroom::vroom("output/PERF_output.tsv",col_names = c("chr", "start", "stop", "class", "length", "strand", "motif_n", "repeat_seq")) %>%
+  mutate(class = nchar(class)) %>%
+  #mutate(class = case_when(
+  #  class == 1 ~ "Monomer",
+  #  class == 2 ~ "Dimer",
+  #  class == 3 ~ "Trimer",
+  #  class == 4 ~ "Tetramer",
+  #  class == 5 ~ "Pentamer",
+  #  class == 6 ~ "Hexamer",
+  #  
+  #  
+  #)) %>%
+  filter(!is.na(class))
+
+
+# Repeat seqeunce length vs abundance
+perf_res %>%
+  filter(!is.na(class)) %>%
+  mutate(class = factor(class)) %>%
+  ggplot(aes(x = length, colour=class, group=class)) +
+  geom_freqpoly() +
+  scale_color_brewer(palette = "Paired") +
+  labs(x = "Repeat length (bp)",
+       y = "Repeat abundance",
+       colour = "Motif length (bp)"
+       )
+
+test <- perf_res %>%
+  filter(chr == "contig_918")
+
+```
+
+# Get positions of the 6 known microsattelites
+
+amplification priemrs:
+
+## Create primers file
+
+```{r}
+#microsat_primers <- tibble::tribble(
+#  ~name, ~forward, ~reverse, ~ref, ~preferred, ~contig, ~start_pos, ~end_pos,
+#  "Dvit1", "CGTTCGTTCTGGTATGGTTATT", "TAACGACCCGACTGAAATGTAG", "Corrie_et_al_2002", TRUE, "contig_4228", 246034, 246090,
+#	"Dvit2", "GCTTAATTTTGTGTCTCAAGTTA", "TAATGCTTCGTTTTCTAAGTGC", "Corrie_et_al_2002", TRUE, "contig_918", 485615, 485647,
+#	"Dvit3", "CCAAAACAACCAAGATTTTCTCC", "GATCCAAACTATGACAAACACCC", "Corrie_et_al_2002", TRUE, "contig_1556", 733473, 733501,
+#	"Dvit4", "TCTTCAAAAATGTTACATGAT", "TATACAATGAATGGTATCAATTC", "Corrie_et_al_2002", TRUE, "contig_2044", 52725, 52746,
+#	"Dvit5", "AAATCCGTTCGGTGAGAGC", "TATGGTCAATGGTCAATCCGTC", "Umina_et_al_2007", TRUE, "contig_1794", 304014, 304031,
+#	"Dvit6", "TGGACGATGGTTTTCATAGC", "TTGATTGTCATTGGTTTTGC", "Forneck_et_al_2006", TRUE, "contig_2873", 245493, 245529,
+#	"DVSSR1", "CGGCGACGAGTTAAACTATC", "TCGTTGTATAGATCTGTGTTGC", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR2", "TCGCTACTACCAGCCGATCAG", "TGAACAATGAAAGCCCTGGTGG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR3", "AGCATGTGAGGTGCAAGGC", "CCTCGGGCGGAACAATCG", "Lin_et_al_2006", TRUE, "contig_2454",965547, 965557,
+# 	"DVSSR4", "TGGTATTCACCTTGGAGCCTAG", "GCTACTGAAACCCCTTCAACAC", "Lin_et_al_2006", TRUE, "contig_4038", 75595, 75619,
+# 	"DVSSR5", "TAGTCTTCTTCCTCGCCATC", "CCGTGGTATCCATCAATATAATC", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR6", "GTTTACTGAAATAAGGGCTGG", "AGTTGTGATTATAAGCCGAGG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR7", "GTGAGTTGACTGTTGATTCG", "CGCAATTCATTCGGTTACC", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR8", "GGTCGTCCCAGTAAACGTAATC", "TGTTTGATAACGGTGATGGTGG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR9", "CGCAATTCATTCGGTTACC", "GTGAGTTGACTGTTGATTCG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR10", "ACTTACTCATACCACCAGTTCG", "CCTATCTACATCCGGCAGTG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR11", "GCCGAAAGGTCTCTAACTGAG", "CCAATAAAACAGTAACGCATTC", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR12", "GCTTGGGCGTGTATTTGTTTGC", "AGTGTCGAGAGAGGACTTACCG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR13", "AGGGCACTCTGATGAATCG", "GTCAAGTCCAATGAGCGTATC", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR14", "GTAGCTTAACATCGCCCATTAC", "CCTAAACAGGCCGATACAAAAC", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR15", "GAATAGCAACACTAGAGTAAGATC", "CATGGCCAATGGTTTGAGAC", "Lin_et_al_2006", FALSE, NA, NA, NA,
+# 	"DVSSR16", "AGACCAGACGCGAGCAATG", "ACCATCAATGAAAGCCTTGTCG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+#  "DVSSR17", "CTCTGTGTAGCCAAGTCAAC", "TATCCTACGCCAGTAAGAAG", "Lin_et_al_2006", FALSE, NA, NA, NA,
+#  "DVSSR18", "CGATATCGTATTTCTGAATAA", "GGGCGTTCGGGTAGAATCG", "Lin_et_al_2006", FALSE, NA, NA, NA
+#)
+
+# Note need to be wary of forward and reverse being in different directiosn to genome assembly strand
+
+microsat_primers <- tibble::tribble(
+  ~name, ~forward, ~reverse, ~ref, ~preferred, ~contig, ~for_start, ~for_end, ~rev_start, ~rev_end,
+  "Dvit1", "CGTTCGTTCTGGTATGGTTATT", "TAACGACCCGACTGAAATGTAG", "Corrie_et_al_2002", TRUE, "contig_4228", 246262,246283 , 246136, 246157, # Forward located by adding 145bp to base position, no blast hit
+	"Dvit2", "GCTTAATTTTGTGTCTCAAGTTA", "TAATGCTTCGTTTTCTAAGTGC", "Corrie_et_al_2002", TRUE, "contig_918", 485806, 485786, 485551, 485572,
+	"Dvit3", "CCAAAACAACCAAGATTTTCTCC", "GATCCAAACTATGACAAACACCC", "Corrie_et_al_2002", TRUE, "contig_1556", 733573, 733551, 733401, 733423,
+	"Dvit4", "TCTTCAAAAATGTTACATGAT", "TATACAATGAATGGTATCAATTC", "Corrie_et_al_2002", TRUE, "contig_2044", 52648, 52666, 52807, 52785,
+	"Dvit5", "AAATCCGTTCGGTGAGAGC", "TATGGTCAATGGTCAATCCGTC", "Umina_et_al_2007", TRUE, "contig_1794", 303973, 303991, 304101, 304080, # Many hits
+	"Dvit6", "TGGACGATGGTTTTCATAGC", "TTGATTGTCATTGGTTTTGC", "Forneck_et_al_2006", TRUE, "contig_2873", 245484, 245465, 245281, 245300,
+	"DVSSR1", "CGGCGACGAGTTAAACTATC", "TCGTTGTATAGATCTGTGTTGC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR2", "TCGCTACTACCAGCCGATCAG", "TGAACAATGAAAGCCCTGGTGG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR3", "AGCATGTGAGGTGCAAGGC", "CCTCGGGCGGAACAATCG", "Lin_et_al_2006", TRUE, "contig_2454",965811, 965793, 965575, 965592,
+ 	"DVSSR4", "TGGTATTCACCTTGGAGCCTAG", "GCTACTGAAACCCCTTCAACAC", "Lin_et_al_2006", TRUE, "contig_4038", 75571, 75591, 75820, 75799,
+ 	"DVSSR5", "TAGTCTTCTTCCTCGCCATC", "CCGTGGTATCCATCAATATAATC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR6", "GTTTACTGAAATAAGGGCTGG", "AGTTGTGATTATAAGCCGAGG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR7", "GTGAGTTGACTGTTGATTCG", "CGCAATTCATTCGGTTACC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR8", "GGTCGTCCCAGTAAACGTAATC", "TGTTTGATAACGGTGATGGTGG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR9", "CGCAATTCATTCGGTTACC", "GTGAGTTGACTGTTGATTCG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR10", "ACTTACTCATACCACCAGTTCG", "CCTATCTACATCCGGCAGTG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR11", "GCCGAAAGGTCTCTAACTGAG", "CCAATAAAACAGTAACGCATTC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR12", "GCTTGGGCGTGTATTTGTTTGC", "AGTGTCGAGAGAGGACTTACCG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR13", "AGGGCACTCTGATGAATCG", "GTCAAGTCCAATGAGCGTATC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR14", "GTAGCTTAACATCGCCCATTAC", "CCTAAACAGGCCGATACAAAAC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR15", "GAATAGCAACACTAGAGTAAGATC", "CATGGCCAATGGTTTGAGAC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+ 	"DVSSR16", "AGACCAGACGCGAGCAATG", "ACCATCAATGAAAGCCTTGTCG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+  "DVSSR17", "CTCTGTGTAGCCAAGTCAAC", "TATCCTACGCCAGTAAGAAG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
+  "DVSSR18", "CGATATCGTATTTCTGAATAA", "GGGCGTTCGGGTAGAATCG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA
+) %>%
+  mutate(dir = case_when(
+    for_end < rev_start ~ "F",
+    for_end > rev_start ~ "R"
+  )) %>%
+  rowwise() %>%
+  mutate(
+  aln_start = case_when(
+    dir == "F" ~ min(for_start, for_end),
+    dir == "R" ~ min(rev_start, rev_end)
+  ),
+  aln_end = case_when(
+    dir == "F" ~ max(rev_start, rev_end),
+    dir == "R" ~ max(for_start, for_end)
+  )) 
+
+# Write out primers file
+microsat_primers %>% 
+  filter(preferred) %>%
+  dplyr::select(name, forward, reverse) %>%
+  write_tsv("primers.txt", col_names = NA)
+
+# Write out bed positions file
+microsat_primers %>% 
+  filter(!is.na(contig), preferred) %>%
+  dplyr::select(contig, aln_start, aln_end, name) %>%
+ # mutate(start_pos = start_pos - 100,
+ #        end_pos = end_pos+100) %>%
+  write_tsv("microsats.bed", col_names = NA)
+
+
+# Filter perf results to only those detected within primer bindign sites
+target_microsat <- perf_res %>%
+  filter(!is.na(class)) %>%
+  dplyr::rename(contig = chr) %>%
+  filter(contig %in% microsat_primers$contig) %>%
+  group_by() %>%
+  group_split() %>%
+  purrr::map(function(x){
+    x %>% 
+      left_join(microsat_primers %>%
+                  dplyr::select(name, contig, aln_start, aln_end)) %>%
+      filter(start > aln_start,
+             stop < aln_end)
+  }) %>%
+  bind_rows()
+
+# Write out unmerged one for HIPSTR genotyping
+target_microsat %>%
+  group_by(contig) %>%
+  arrange(start)%>%
+  mutate(n = row_number()) %>%
+  mutate(name = case_when(
+    n > 1 ~ paste0(name, "_", n),
+    TRUE ~ name
+  ))%>%
+  dplyr::select(contig, start, stop, class, motif_n, name ) %>%
+  write_tsv("target_microsats.bed", col_names = NA)
+  
+
+# Merge overlapping microsattelites (see analyze_overlaps.py script from the hipstr program)
+
+# extract entries that aren't within 10bp of another entry or are within 10bp of one or more entries that all share the same period
+
+```
+## Get primer bindign positions
+
+```{bash}
+module load EMBOSS/6.6.0-GCC-8.2.0-2.31.1
+cd /group/pathogens/Alexp/microsat
+primersearch -seqall /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta \
+-infile /group/pathogens/Alexp/microsat/primers.txt \
+-mismatchpercent 20 \
+-outfile microsatt.primersearch
+
+
+```
+
+
+## Extract regions from genome for manual checking
+
+```{bash}
+dos2unix extract_bed_region.sh
+dos2unix microsats.bed
+find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) | grep ".bam$" | sort | uniq > extraction_job_index.txt
+joblength=$(cat extraction_job_index.txt | wc -l)
+sbatch --array=1-$joblength extract_bed_region.sh /group/pathogens/Alexp/microsat/microsats.bed 
+
+
+# split by loci and merge files
+
+```
+
+## Genotype microsattelites in WGS data using HipSTR
+
+```{bash}
+
+## Install into virtual environment
+cd ~
+module purge
+module load Python/3.8.2-GCCcore-9.3.0 
+virtualenv ~/hipstr
+source ~/hipstr/bin/activate
+git clone https://github.com/HipSTR-Tool/HipSTR
+cd HipSTR
+make
+
+# Install python modules for visualising
+pip install reportlab 
+pip install svglib
+
+
+cd /group/pathogens/Alexp/microsat
+bamlist=$(find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) | grep ".bam$" | sort | uniq | paste -s -d ',')
+/home/ap0y/HipSTR/HipSTR --bams ${bamlist} \
+--fasta /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta \
+--regions /group/pathogens/Alexp/microsat/target_microsats.bed \
+--str-vcf str_calls.vcf.gz \
+--viz-out str_calls.viz.gz
+
+module load VCFtools/0.1.16-intel-2019a-Perl-5.28.1
+
+# Create tranposed output files for each SNP
+strlist=$(awk -F '\t' '{print $6}' target_microsats.bed)
+mkdir hipstr_results
+for s in ${strlist}; do
+  vcftools --gzvcf str_calls.vcf.gz --snp $s --recode --recode-INFO-all --stdout | tail -n 2 | awk -f transpose.awk > hipstr_results/$s.txt
+done
+
+# Visualise results with VizAlnPdf
+tabix -p vcf str_calls.viz.gz
+
+/home/ap0y/HipSTR/VizAlnPdf str_calls.viz.gz contig_918 485551 HGMFWDSXY_Y21S0015-dv15g1vaitc8151 viz_HGMFWDSXY_Y21S0015-dv15g1vaitc8151 3
+```
+
+# Process HipSTR output
+
+
+```{r}
+# Parse Hipstr outputs
+hipstr_res <- fs::dir_ls("output/hipstr_results/", glob="*.txt") %>%
+  purrr::map(function(x){
+    lines <- readLines(x)
+    print(x)
+    
+    # Process header
+    header_length <- which(str_detect(lines, "^FORMAT"))
+    if(length(header_length) == 0) { return(NULL)}
+    header <- lines[1:header_length]
+    
+    ref_allele <- header[str_detect(header, "^REF")] %>%
+      str_remove("^.*\t")
+    alt_alleles <- header[str_detect(header, "^ALT")] %>%
+      str_remove("^.*\t") %>%
+      str_split(",") %>%
+      unlist()
+    info <- header[str_detect(header, "^INFO")] %>%
+      str_remove("^.*\t")%>%
+      str_split(";")%>%
+      unlist()
+    bp_diffs <- info[str_detect(info, "^BPDIFFS=")] %>%
+      str_remove("^BPDIFFS=") %>%
+      str_split(",") %>%
+      unlist() %>%
+      as.numeric()
+    format <- header[str_detect(header, "FORMAT\t")] %>%
+      str_remove("FORMAT\t") %>%
+      str_split(":") %>%
+      unlist() 
+    allele_list <- enframe(c(ref_allele, alt_alleles), name="allele", value="allele_seq") %>%
+      mutate(bp_diff = c(0, bp_diffs))
+    # Process genotypes
+    geno <- read_tsv(lines[header_length+1:length(lines)], col_names =c("sample_id", "format")) %>%
+      filter(!is.na(sample_id)) %>%
+      tidyr::separate(format, into=format, sep=":") %>%
+      tidyr::separate(GT, into=c("allele_1", "allele_2"), remove = FALSE) %>%
+      mutate(allele_1 = as.numeric(allele_1) +1, # move zero indexing to 1 indexing
+             allele_2 = as.numeric(allele_2) +1
+             ) %>%
+      left_join(allele_list %>% dplyr::rename(allele_1 = allele, allele_seq1 = allele_seq, bp_diff1 = bp_diff))%>%
+      left_join(allele_list %>% dplyr::rename(allele_2 = allele, allele_seq2 = allele_seq, bp_diff2 = bp_diff)) %>%
+      dplyr::select(-allele_1, -allele_2)
+    
+  }) %>%
+  bind_rows(.id="locus") %>%
+  mutate(locus = basename(locus) %>% str_remove(".txt")) %>%
+  na_if(".") %>%
+  filter(!is.na(GT))
+# Maybe only consider those genotypes where q == 1?
+```

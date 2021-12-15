@@ -1,0 +1,2116 @@
+
+Primer name Dvit1
+
+Primer name Dvit2
+Amplimer 1
+	Sequence: contig_2484  
+	
+	GCTTAATTTTGTGTCTCAAGTTA hits forward strand at 80073 with 4 mismatches
+	TAATGCTTCGTTTTCTAAGTGC hits reverse strand at [182367] with 4 mismatches
+	Amplimer length: 84400 bp
+Amplimer 2
+	Sequence: contig_2525  
+	
+	GCTTAATTTTGTGTCTCAAGTTA hits forward strand at 708826 with 4 mismatches
+	TAATGCTTCGTTTTCTAAGTGC hits reverse strand at [244235] with 4 mismatches
+	Amplimer length: 148606 bp
+Amplimer 3
+	Sequence: contig_918  
+	
+	TAATGCTTCGTTTTCTAAGTGC hits forward strand at 485551 with 0 mismatches
+	GCTTAATTTTGTGTCTCAAGTTA hits reverse strand at [118429] with 1 mismatches
+	Amplimer length: 256 bp
+Amplimer 4
+	Sequence: scaffold_1330  
+	
+	TAATGCTTCGTTTTCTAAGTGC hits forward strand at 684663 with 4 mismatches
+	GCTTAATTTTGTGTCTCAAGTTA hits reverse strand at [108982] with 4 mismatches
+	Amplimer length: 65288 bp
+
+Primer name Dvit3
+Amplimer 1
+	Sequence: contig_1556  
+	
+	GATCCAAACTATGACAAACACCC hits forward strand at 733401 with 0 mismatches
+	CCAAAACAACCAAGATTTTCTCC hits reverse strand at [303341] with 0 mismatches
+	Amplimer length: 173 bp
+
+Primer name Dvit4
+Amplimer 1
+	Sequence: contig_1162  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 344713 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [1488740] with 4 mismatches
+	Amplimer length: 105020 bp
+Amplimer 2
+	Sequence: contig_1162  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 344713 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [1043704] with 4 mismatches
+	Amplimer length: 550056 bp
+Amplimer 3
+	Sequence: contig_1399  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 317718 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [44975] with 4 mismatches
+	Amplimer length: 121918 bp
+Amplimer 4
+	Sequence: contig_1399  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 210510 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [44975] with 4 mismatches
+	Amplimer length: 229126 bp
+Amplimer 5
+	Sequence: contig_1422  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 379866 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [154667] with 4 mismatches
+	Amplimer length: 336863 bp
+Amplimer 6
+	Sequence: contig_1422  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 323140 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [154667] with 4 mismatches
+	Amplimer length: 393589 bp
+Amplimer 7
+	Sequence: contig_2044  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 52646 with 2 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [11423] with 0 mismatches
+	Amplimer length: 162 bp
+Amplimer 8
+	Sequence: contig_223  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 593016 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [275946] with 4 mismatches
+	Amplimer length: 45478 bp
+Amplimer 9
+	Sequence: contig_223  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 320821 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [275946] with 4 mismatches
+	Amplimer length: 317673 bp
+Amplimer 10
+	Sequence: contig_223  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 472735 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [36537] with 4 mismatches
+	Amplimer length: 405168 bp
+Amplimer 11
+	Sequence: contig_2220  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 473388 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [764616] with 3 mismatches
+	Amplimer length: 4926 bp
+Amplimer 12
+	Sequence: contig_2220  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 473388 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [227996] with 4 mismatches
+	Amplimer length: 541546 bp
+Amplimer 13
+	Sequence: contig_2235  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 401472 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [492665] with 4 mismatches
+	Amplimer length: 115422 bp
+Amplimer 14
+	Sequence: contig_2235  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 170813 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [492665] with 4 mismatches
+	Amplimer length: 346081 bp
+Amplimer 15
+	Sequence: contig_2235  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 149773 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [492665] with 4 mismatches
+	Amplimer length: 367121 bp
+Amplimer 16
+	Sequence: contig_2584  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 39329 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [39252] with 4 mismatches
+	Amplimer length: 223146 bp
+Amplimer 17
+	Sequence: contig_426  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 171280 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [278400] with 4 mismatches
+	Amplimer length: 120065 bp
+Amplimer 18
+	Sequence: contig_464  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 1531437 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [184075] with 4 mismatches
+	Amplimer length: 137236 bp
+Amplimer 19
+	Sequence: contig_464  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 849335 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [184075] with 4 mismatches
+	Amplimer length: 819338 bp
+Amplimer 20
+	Sequence: contig_464  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 500757 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [184075] with 4 mismatches
+	Amplimer length: 1167916 bp
+Amplimer 21
+	Sequence: contig_464  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 843729 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [948563] with 4 mismatches
+	Amplimer length: 60456 bp
+Amplimer 22
+	Sequence: contig_464  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 843729 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [631365] with 4 mismatches
+	Amplimer length: 377654 bp
+Amplimer 23
+	Sequence: contig_603  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 431554 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [368380] with 4 mismatches
+	Amplimer length: 12203 bp
+Amplimer 24
+	Sequence: contig_670  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 407 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [233033] with 4 mismatches
+	Amplimer length: 541366 bp
+Amplimer 25
+	Sequence: contig_681  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 211442 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [448008] with 4 mismatches
+	Amplimer length: 77622 bp
+Amplimer 26
+	Sequence: contig_681  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 36781 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [448008] with 4 mismatches
+	Amplimer length: 252283 bp
+Amplimer 27
+	Sequence: contig_559  
+	
+	TATACAATGAATGGTATCAATTC hits forward strand at 384313 with 4 mismatches
+	TCTTCAAAAATGTTACATGAT hits reverse strand at [1058197] with 4 mismatches
+	Amplimer length: 48558 bp
+Amplimer 28
+	Sequence: contig_873  
+	
+	TCTTCAAAAATGTTACATGAT hits forward strand at 179804 with 4 mismatches
+	TATACAATGAATGGTATCAATTC hits reverse strand at [124257] with 4 mismatches
+	Amplimer length: 235546 bp
+
+Primer name Dvit5
+Amplimer 1
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [530504] with 3 mismatches
+	Amplimer length: 103226 bp
+Amplimer 2
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [490283] with 3 mismatches
+	Amplimer length: 143447 bp
+Amplimer 3
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [433449] with 3 mismatches
+	Amplimer length: 200281 bp
+Amplimer 4
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [265013] with 1 mismatches
+	Amplimer length: 368717 bp
+Amplimer 5
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [236473] with 3 mismatches
+	Amplimer length: 397257 bp
+Amplimer 6
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [208503] with 2 mismatches
+	Amplimer length: 425227 bp
+Amplimer 7
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [26290] with 2 mismatches
+	Amplimer length: 607440 bp
+Amplimer 8
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [24095] with 3 mismatches
+	Amplimer length: 609635 bp
+Amplimer 9
+	Sequence: contig_1324  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 551372 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [13877] with 2 mismatches
+	Amplimer length: 619853 bp
+Amplimer 10
+	Sequence: contig_1381  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 7282 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [43220] with 2 mismatches
+	Amplimer length: 3399 bp
+Amplimer 11
+	Sequence: contig_1381  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 7282 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [41636] with 2 mismatches
+	Amplimer length: 4983 bp
+Amplimer 12
+	Sequence: contig_1381  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 7282 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [24196] with 1 mismatches
+	Amplimer length: 22423 bp
+Amplimer 13
+	Sequence: contig_1381  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 7282 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [1922] with 3 mismatches
+	Amplimer length: 44697 bp
+Amplimer 14
+	Sequence: contig_1399  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 171961 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [284421] with 3 mismatches
+	Amplimer length: 28229 bp
+Amplimer 15
+	Sequence: contig_1399  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 171961 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [214429] with 1 mismatches
+	Amplimer length: 98221 bp
+Amplimer 16
+	Sequence: contig_1399  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 171961 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [90011] with 3 mismatches
+	Amplimer length: 222639 bp
+Amplimer 17
+	Sequence: contig_1399  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 171961 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [10672] with 3 mismatches
+	Amplimer length: 301978 bp
+Amplimer 18
+	Sequence: contig_1399  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 171961 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [7185] with 1 mismatches
+	Amplimer length: 305465 bp
+Amplimer 19
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [936629] with 2 mismatches
+	Amplimer length: 2756 bp
+Amplimer 20
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [932074] with 3 mismatches
+	Amplimer length: 7311 bp
+Amplimer 21
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [900439] with 3 mismatches
+	Amplimer length: 38946 bp
+Amplimer 22
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [895299] with 1 mismatches
+	Amplimer length: 44086 bp
+Amplimer 23
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [877914] with 3 mismatches
+	Amplimer length: 61471 bp
+Amplimer 24
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [730486] with 0 mismatches
+	Amplimer length: 208899 bp
+Amplimer 25
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [632869] with 3 mismatches
+	Amplimer length: 306516 bp
+Amplimer 26
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [608114] with 3 mismatches
+	Amplimer length: 331271 bp
+Amplimer 27
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [606558] with 2 mismatches
+	Amplimer length: 332827 bp
+Amplimer 28
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [562094] with 3 mismatches
+	Amplimer length: 377291 bp
+Amplimer 29
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [548255] with 3 mismatches
+	Amplimer length: 391130 bp
+Amplimer 30
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [508325] with 2 mismatches
+	Amplimer length: 431060 bp
+Amplimer 31
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [506219] with 2 mismatches
+	Amplimer length: 433166 bp
+Amplimer 32
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [468528] with 0 mismatches
+	Amplimer length: 470857 bp
+Amplimer 33
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [456072] with 3 mismatches
+	Amplimer length: 483313 bp
+Amplimer 34
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [440900] with 1 mismatches
+	Amplimer length: 498485 bp
+Amplimer 35
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [322424] with 3 mismatches
+	Amplimer length: 616961 bp
+Amplimer 36
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [314318] with 3 mismatches
+	Amplimer length: 625067 bp
+Amplimer 37
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [250969] with 3 mismatches
+	Amplimer length: 688416 bp
+Amplimer 38
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [250711] with 2 mismatches
+	Amplimer length: 688674 bp
+Amplimer 39
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [208519] with 3 mismatches
+	Amplimer length: 730866 bp
+Amplimer 40
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [123167] with 3 mismatches
+	Amplimer length: 816218 bp
+Amplimer 41
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [67515] with 1 mismatches
+	Amplimer length: 871870 bp
+Amplimer 42
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [55953] with 1 mismatches
+	Amplimer length: 883432 bp
+Amplimer 43
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [41735] with 1 mismatches
+	Amplimer length: 897650 bp
+Amplimer 44
+	Sequence: contig_1339  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 880950 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [24171] with 0 mismatches
+	Amplimer length: 915214 bp
+Amplimer 45
+	Sequence: contig_1435  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 312211 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [686345] with 3 mismatches
+	Amplimer length: 65527 bp
+Amplimer 46
+	Sequence: contig_1435  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 305791 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [686345] with 3 mismatches
+	Amplimer length: 71947 bp
+Amplimer 47
+	Sequence: contig_1435  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 264845 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [686345] with 3 mismatches
+	Amplimer length: 112893 bp
+Amplimer 48
+	Sequence: contig_1435  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 201542 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [686345] with 3 mismatches
+	Amplimer length: 176196 bp
+Amplimer 49
+	Sequence: contig_1435  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 54948 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [686345] with 3 mismatches
+	Amplimer length: 322790 bp
+Amplimer 50
+	Sequence: contig_1578  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 302976 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [9213] with 0 mismatches
+	Amplimer length: 3546 bp
+Amplimer 51
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 303973 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 129 bp
+Amplimer 52
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 280867 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 23235 bp
+Amplimer 53
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 275380 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 28722 bp
+Amplimer 54
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 206113 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 97989 bp
+Amplimer 55
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 160721 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 143381 bp
+Amplimer 56
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 147286 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 156816 bp
+Amplimer 57
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 141555 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 162547 bp
+Amplimer 58
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 132288 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 171814 bp
+Amplimer 59
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 123426 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 180676 bp
+Amplimer 60
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 116651 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 187451 bp
+Amplimer 61
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 114902 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 189200 bp
+Amplimer 62
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 101216 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 202886 bp
+Amplimer 63
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 100938 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 203164 bp
+Amplimer 64
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 95352 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 208750 bp
+Amplimer 65
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 71026 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 233076 bp
+Amplimer 66
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 44294 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 259808 bp
+Amplimer 67
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 21118 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 282984 bp
+Amplimer 68
+	Sequence: contig_1794  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 15271 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [129062] with 0 mismatches
+	Amplimer length: 288831 bp
+Amplimer 69
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 654274 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 5268 bp
+Amplimer 70
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 635069 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 24473 bp
+Amplimer 71
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 618758 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 40784 bp
+Amplimer 72
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 469059 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 190483 bp
+Amplimer 73
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 468181 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 191361 bp
+Amplimer 74
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 452281 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 207261 bp
+Amplimer 75
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 445981 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 213561 bp
+Amplimer 76
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 438568 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 220974 bp
+Amplimer 77
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 376503 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 283039 bp
+Amplimer 78
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 195564 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 463978 bp
+Amplimer 79
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 177085 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 482457 bp
+Amplimer 80
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 158214 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 501328 bp
+Amplimer 81
+	Sequence: contig_1869  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 17598 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [2260] with 4 mismatches
+	Amplimer length: 641944 bp
+Amplimer 82
+	Sequence: contig_1948  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 149461 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [57946] with 2 mismatches
+	Amplimer length: 16644 bp
+Amplimer 83
+	Sequence: contig_1948  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 149461 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [49047] with 0 mismatches
+	Amplimer length: 25543 bp
+Amplimer 84
+	Sequence: contig_1948  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 149461 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [22933] with 1 mismatches
+	Amplimer length: 51657 bp
+Amplimer 85
+	Sequence: contig_1948  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 149461 with 3 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [460] with 1 mismatches
+	Amplimer length: 74130 bp
+Amplimer 86
+	Sequence: contig_2143  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 25342 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [29671] with 0 mismatches
+	Amplimer length: 25181 bp
+Amplimer 87
+	Sequence: contig_2143  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 2187 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [29671] with 0 mismatches
+	Amplimer length: 48336 bp
+Amplimer 88
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [503662] with 1 mismatches
+	Amplimer length: 10963 bp
+Amplimer 89
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [496748] with 0 mismatches
+	Amplimer length: 17877 bp
+Amplimer 90
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [455394] with 3 mismatches
+	Amplimer length: 59231 bp
+Amplimer 91
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [348908] with 1 mismatches
+	Amplimer length: 165717 bp
+Amplimer 92
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [298936] with 1 mismatches
+	Amplimer length: 215689 bp
+Amplimer 93
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [298679] with 1 mismatches
+	Amplimer length: 215946 bp
+Amplimer 94
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [279367] with 1 mismatches
+	Amplimer length: 235258 bp
+Amplimer 95
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [276862] with 3 mismatches
+	Amplimer length: 237763 bp
+Amplimer 96
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [196283] with 3 mismatches
+	Amplimer length: 318342 bp
+Amplimer 97
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [194113] with 3 mismatches
+	Amplimer length: 320512 bp
+Amplimer 98
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [90497] with 1 mismatches
+	Amplimer length: 424128 bp
+Amplimer 99
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [70873] with 2 mismatches
+	Amplimer length: 443752 bp
+Amplimer 100
+	Sequence: contig_203  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 639804 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [15714] with 1 mismatches
+	Amplimer length: 498911 bp
+Amplimer 101
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 771094 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 11988 bp
+Amplimer 102
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 764604 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 18478 bp
+Amplimer 103
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 728845 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 54237 bp
+Amplimer 104
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 661080 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 122002 bp
+Amplimer 105
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 591579 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 191503 bp
+Amplimer 106
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 520059 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 263023 bp
+Amplimer 107
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 511919 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 271163 bp
+Amplimer 108
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 502889 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 280193 bp
+Amplimer 109
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 471298 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 311784 bp
+Amplimer 110
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 441152 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 341930 bp
+Amplimer 111
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 406237 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 376845 bp
+Amplimer 112
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 316671 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 466411 bp
+Amplimer 113
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 307273 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 475809 bp
+Amplimer 114
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 271572 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 511510 bp
+Amplimer 115
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 237438 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 545644 bp
+Amplimer 116
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 226823 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 556259 bp
+Amplimer 117
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 205378 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 577704 bp
+Amplimer 118
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 182220 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 600862 bp
+Amplimer 119
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 180841 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 602241 bp
+Amplimer 120
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 124181 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 658901 bp
+Amplimer 121
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 102901 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 680181 bp
+Amplimer 122
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 101310 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 681772 bp
+Amplimer 123
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 55947 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 727135 bp
+Amplimer 124
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 44973 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 738109 bp
+Amplimer 125
+	Sequence: contig_2229  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 26278 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [96036] with 4 mismatches
+	Amplimer length: 756804 bp
+Amplimer 126
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [454793] with 3 mismatches
+	Amplimer length: 62432 bp
+Amplimer 127
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [450914] with 2 mismatches
+	Amplimer length: 66311 bp
+Amplimer 128
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [446450] with 3 mismatches
+	Amplimer length: 70775 bp
+Amplimer 129
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [442001] with 3 mismatches
+	Amplimer length: 75224 bp
+Amplimer 130
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [436603] with 2 mismatches
+	Amplimer length: 80622 bp
+Amplimer 131
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [428629] with 0 mismatches
+	Amplimer length: 88596 bp
+Amplimer 132
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [413359] with 1 mismatches
+	Amplimer length: 103866 bp
+Amplimer 133
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [408288] with 2 mismatches
+	Amplimer length: 108937 bp
+Amplimer 134
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [404206] with 0 mismatches
+	Amplimer length: 113019 bp
+Amplimer 135
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [367391] with 2 mismatches
+	Amplimer length: 149834 bp
+Amplimer 136
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [238291] with 0 mismatches
+	Amplimer length: 278934 bp
+Amplimer 137
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [164476] with 0 mismatches
+	Amplimer length: 352749 bp
+Amplimer 138
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [157212] with 2 mismatches
+	Amplimer length: 360013 bp
+Amplimer 139
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [130822] with 0 mismatches
+	Amplimer length: 386403 bp
+Amplimer 140
+	Sequence: contig_2525  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 584442 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [111396] with 1 mismatches
+	Amplimer length: 405829 bp
+Amplimer 141
+	Sequence: contig_3172  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 23630 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [97994] with 4 mismatches
+	Amplimer length: 3033 bp
+Amplimer 142
+	Sequence: contig_3354  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 34776 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [99693] with 1 mismatches
+	Amplimer length: 7129 bp
+Amplimer 143
+	Sequence: contig_3354  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 34776 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [62171] with 0 mismatches
+	Amplimer length: 44651 bp
+Amplimer 144
+	Sequence: contig_3354  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 34776 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [31272] with 2 mismatches
+	Amplimer length: 75550 bp
+Amplimer 145
+	Sequence: contig_3354  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 34776 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [19651] with 3 mismatches
+	Amplimer length: 87171 bp
+Amplimer 146
+	Sequence: contig_3354  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 34776 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [15516] with 0 mismatches
+	Amplimer length: 91306 bp
+Amplimer 147
+	Sequence: contig_4939  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 37600 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [32611] with 3 mismatches
+	Amplimer length: 167693 bp
+Amplimer 148
+	Sequence: contig_4939  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 37600 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [25516] with 0 mismatches
+	Amplimer length: 174788 bp
+Amplimer 149
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1700706 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 32303 bp
+Amplimer 150
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1667102 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 65907 bp
+Amplimer 151
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1648237 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 84772 bp
+Amplimer 152
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1636608 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 96401 bp
+Amplimer 153
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1558273 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 174736 bp
+Amplimer 154
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1529616 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 203393 bp
+Amplimer 155
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1526198 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 206811 bp
+Amplimer 156
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1524404 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 208605 bp
+Amplimer 157
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1523997 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 209012 bp
+Amplimer 158
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1522230 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 210779 bp
+Amplimer 159
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1508846 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 224163 bp
+Amplimer 160
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1481998 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 251011 bp
+Amplimer 161
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1459442 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 273567 bp
+Amplimer 162
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1447081 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 285928 bp
+Amplimer 163
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1418003 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 315006 bp
+Amplimer 164
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1377300 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 355709 bp
+Amplimer 165
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1368502 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 364507 bp
+Amplimer 166
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1365343 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 367666 bp
+Amplimer 167
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1357000 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 376009 bp
+Amplimer 168
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1320657 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 412352 bp
+Amplimer 169
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1185257 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 547752 bp
+Amplimer 170
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1181755 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 551254 bp
+Amplimer 171
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1151932 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 581077 bp
+Amplimer 172
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1116364 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 616645 bp
+Amplimer 173
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1045832 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 687177 bp
+Amplimer 174
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 1020375 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 712634 bp
+Amplimer 175
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 918134 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 814875 bp
+Amplimer 176
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 811612 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 921397 bp
+Amplimer 177
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 674155 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1058854 bp
+Amplimer 178
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 634347 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1098662 bp
+Amplimer 179
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 631721 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1101288 bp
+Amplimer 180
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 629752 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1103257 bp
+Amplimer 181
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 595496 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1137513 bp
+Amplimer 182
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 570098 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1162911 bp
+Amplimer 183
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 562420 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1170589 bp
+Amplimer 184
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 552797 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1180212 bp
+Amplimer 185
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 471275 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1261734 bp
+Amplimer 186
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 450692 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1282317 bp
+Amplimer 187
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 391981 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1341028 bp
+Amplimer 188
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 389690 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1343319 bp
+Amplimer 189
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 386656 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1346353 bp
+Amplimer 190
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 373063 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1359946 bp
+Amplimer 191
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 313201 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1419808 bp
+Amplimer 192
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 311550 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1421459 bp
+Amplimer 193
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 143392 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1589617 bp
+Amplimer 194
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 137108 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1595901 bp
+Amplimer 195
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 131203 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1601806 bp
+Amplimer 196
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 107849 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1625160 bp
+Amplimer 197
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 104289 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1628720 bp
+Amplimer 198
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 49844 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1683165 bp
+Amplimer 199
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 48719 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1684290 bp
+Amplimer 200
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 10812 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1722197 bp
+Amplimer 201
+	Sequence: contig_464  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 873 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [119739] with 4 mismatches
+	Amplimer length: 1732136 bp
+Amplimer 202
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [644081] with 2 mismatches
+	Amplimer length: 23490 bp
+Amplimer 203
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [620444] with 3 mismatches
+	Amplimer length: 47127 bp
+Amplimer 204
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [518173] with 2 mismatches
+	Amplimer length: 149398 bp
+Amplimer 205
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [291913] with 3 mismatches
+	Amplimer length: 375658 bp
+Amplimer 206
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [275596] with 1 mismatches
+	Amplimer length: 391975 bp
+Amplimer 207
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [271336] with 2 mismatches
+	Amplimer length: 396235 bp
+Amplimer 208
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [260421] with 3 mismatches
+	Amplimer length: 407150 bp
+Amplimer 209
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [254532] with 1 mismatches
+	Amplimer length: 413039 bp
+Amplimer 210
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [211042] with 2 mismatches
+	Amplimer length: 456529 bp
+Amplimer 211
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [206653] with 3 mismatches
+	Amplimer length: 460918 bp
+Amplimer 212
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [104431] with 2 mismatches
+	Amplimer length: 563140 bp
+Amplimer 213
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [97246] with 2 mismatches
+	Amplimer length: 570325 bp
+Amplimer 214
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [96269] with 3 mismatches
+	Amplimer length: 571302 bp
+Amplimer 215
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [48469] with 3 mismatches
+	Amplimer length: 619102 bp
+Amplimer 216
+	Sequence: contig_555  
+	
+	TATGGTCAATGGTCAATCCGTC hits forward strand at 80253 with 4 mismatches
+	AAATCCGTTCGGTGAGAGC hits reverse strand at [28486] with 3 mismatches
+	Amplimer length: 639085 bp
+Amplimer 217
+	Sequence: contig_583  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 2611 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [295292] with 4 mismatches
+	Amplimer length: 6989 bp
+Amplimer 218
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 504884 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 27317 bp
+Amplimer 219
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 501724 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 30477 bp
+Amplimer 220
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 389663 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 142538 bp
+Amplimer 221
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 381757 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 150444 bp
+Amplimer 222
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 366030 with 3 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 166171 bp
+Amplimer 223
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 301846 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 230355 bp
+Amplimer 224
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 299196 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 233005 bp
+Amplimer 225
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 289824 with 2 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 242377 bp
+Amplimer 226
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 121589 with 0 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 410612 bp
+Amplimer 227
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 32169 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 500032 bp
+Amplimer 228
+	Sequence: contig_749  
+	
+	AAATCCGTTCGGTGAGAGC hits forward strand at 15249 with 1 mismatches
+	TATGGTCAATGGTCAATCCGTC hits reverse strand at [699304] with 0 mismatches
+	Amplimer length: 516952 bp
+
+Primer name Dvit6
+Amplimer 1
+	Sequence: contig_1048  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 161691 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [310584] with 4 mismatches
+	Amplimer length: 13257 bp
+Amplimer 2
+	Sequence: contig_1048  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 161691 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [52962] with 4 mismatches
+	Amplimer length: 270879 bp
+Amplimer 3
+	Sequence: contig_1028  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 273063 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [372994] with 4 mismatches
+	Amplimer length: 118334 bp
+Amplimer 4
+	Sequence: contig_1028  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 13004 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [372994] with 4 mismatches
+	Amplimer length: 378393 bp
+Amplimer 5
+	Sequence: contig_1143  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 374865 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [46501] with 4 mismatches
+	Amplimer length: 51849 bp
+Amplimer 6
+	Sequence: contig_1238  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 14563 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [340639] with 4 mismatches
+	Amplimer length: 431024 bp
+Amplimer 7
+	Sequence: contig_1238  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 14563 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [293468] with 4 mismatches
+	Amplimer length: 478195 bp
+Amplimer 8
+	Sequence: contig_1238  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 14563 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [26355] with 4 mismatches
+	Amplimer length: 745308 bp
+Amplimer 9
+	Sequence: contig_1279  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 730664 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [107143] with 4 mismatches
+	Amplimer length: 85199 bp
+Amplimer 10
+	Sequence: contig_1329  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 448306 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [587830] with 4 mismatches
+	Amplimer length: 94906 bp
+Amplimer 11
+	Sequence: contig_1329  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 418686 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [587830] with 4 mismatches
+	Amplimer length: 124526 bp
+Amplimer 12
+	Sequence: contig_1399  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 19197 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [291257] with 4 mismatches
+	Amplimer length: 174157 bp
+Amplimer 13
+	Sequence: contig_1435  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 68391 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [609403] with 4 mismatches
+	Amplimer length: 386289 bp
+Amplimer 14
+	Sequence: contig_1533  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 276678 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [41436] with 4 mismatches
+	Amplimer length: 170145 bp
+Amplimer 15
+	Sequence: contig_1539  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 66712 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [565800] with 4 mismatches
+	Amplimer length: 1192 bp
+Amplimer 16
+	Sequence: contig_1556  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 721207 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [208761] with 4 mismatches
+	Amplimer length: 106947 bp
+Amplimer 17
+	Sequence: contig_1556  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 716921 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [208761] with 4 mismatches
+	Amplimer length: 111233 bp
+Amplimer 18
+	Sequence: contig_1556  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 648405 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [208761] with 4 mismatches
+	Amplimer length: 179749 bp
+Amplimer 19
+	Sequence: contig_1532  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 1529130 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [32634] with 4 mismatches
+	Amplimer length: 87843 bp
+Amplimer 20
+	Sequence: contig_1532  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 562104 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [32634] with 4 mismatches
+	Amplimer length: 1054869 bp
+Amplimer 21
+	Sequence: contig_1622  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 179643 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [159393] with 4 mismatches
+	Amplimer length: 49211 bp
+Amplimer 22
+	Sequence: contig_1674  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 90099 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [16100] with 4 mismatches
+	Amplimer length: 229959 bp
+Amplimer 23
+	Sequence: contig_1759  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 80114 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [20628] with 3 mismatches
+	Amplimer length: 189713 bp
+Amplimer 24
+	Sequence: contig_1711  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 66505 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [250567] with 4 mismatches
+	Amplimer length: 675143 bp
+Amplimer 25
+	Sequence: contig_1711  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 66505 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [195727] with 4 mismatches
+	Amplimer length: 729983 bp
+Amplimer 26
+	Sequence: contig_1754  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 259865 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [120547] with 4 mismatches
+	Amplimer length: 438826 bp
+Amplimer 27
+	Sequence: contig_1754  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 131276 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [120547] with 4 mismatches
+	Amplimer length: 567415 bp
+Amplimer 28
+	Sequence: contig_1797  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 141676 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [48702] with 4 mismatches
+	Amplimer length: 516282 bp
+Amplimer 29
+	Sequence: contig_1909  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 199105 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [66891] with 4 mismatches
+	Amplimer length: 5658 bp
+Amplimer 30
+	Sequence: contig_1902  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 507559 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [259373] with 4 mismatches
+	Amplimer length: 4444 bp
+Amplimer 31
+	Sequence: contig_190  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 128342 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [97506] with 4 mismatches
+	Amplimer length: 993131 bp
+Amplimer 32
+	Sequence: contig_190  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 127959 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [97506] with 4 mismatches
+	Amplimer length: 993514 bp
+Amplimer 33
+	Sequence: contig_1952  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 157189 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [152513] with 4 mismatches
+	Amplimer length: 266116 bp
+Amplimer 34
+	Sequence: contig_1876  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 968257 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [439393] with 4 mismatches
+	Amplimer length: 133025 bp
+Amplimer 35
+	Sequence: contig_1876  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 968257 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [375251] with 4 mismatches
+	Amplimer length: 197167 bp
+Amplimer 36
+	Sequence: contig_1930  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 746075 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [113571] with 4 mismatches
+	Amplimer length: 97854 bp
+Amplimer 37
+	Sequence: contig_1930  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 713705 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [234307] with 4 mismatches
+	Amplimer length: 9488 bp
+Amplimer 38
+	Sequence: contig_1930  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 713705 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [113571] with 4 mismatches
+	Amplimer length: 130224 bp
+Amplimer 39
+	Sequence: contig_1930  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 266858 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [254071] with 4 mismatches
+	Amplimer length: 436571 bp
+Amplimer 40
+	Sequence: contig_1930  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 266858 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [234307] with 4 mismatches
+	Amplimer length: 456335 bp
+Amplimer 41
+	Sequence: contig_1930  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 266858 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [113571] with 4 mismatches
+	Amplimer length: 577071 bp
+Amplimer 42
+	Sequence: contig_1958  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 367413 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [94160] with 4 mismatches
+	Amplimer length: 72361 bp
+Amplimer 43
+	Sequence: contig_1958  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 244757 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [116558] with 4 mismatches
+	Amplimer length: 172619 bp
+Amplimer 44
+	Sequence: contig_1990  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 331723 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [65804] with 4 mismatches
+	Amplimer length: 111972 bp
+Amplimer 45
+	Sequence: contig_2062  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 1489409 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [665824] with 4 mismatches
+	Amplimer length: 200352 bp
+Amplimer 46
+	Sequence: contig_2215  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 281956 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [411277] with 4 mismatches
+	Amplimer length: 53444 bp
+Amplimer 47
+	Sequence: contig_2291  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 237046 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [167350] with 4 mismatches
+	Amplimer length: 339104 bp
+Amplimer 48
+	Sequence: contig_2442  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 27237 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [21787] with 3 mismatches
+	Amplimer length: 33144 bp
+Amplimer 49
+	Sequence: contig_2322  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 634296 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [286218] with 4 mismatches
+	Amplimer length: 68476 bp
+Amplimer 50
+	Sequence: contig_2322  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 615663 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [286218] with 4 mismatches
+	Amplimer length: 87109 bp
+Amplimer 51
+	Sequence: contig_2483  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 127538 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [588991] with 4 mismatches
+	Amplimer length: 119729 bp
+Amplimer 52
+	Sequence: contig_2454  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 505973 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [971441] with 4 mismatches
+	Amplimer length: 182925 bp
+Amplimer 53
+	Sequence: contig_2454  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 331115 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [1186694] with 4 mismatches
+	Amplimer length: 142530 bp
+Amplimer 54
+	Sequence: contig_2454  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 331115 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [1078896] with 4 mismatches
+	Amplimer length: 250328 bp
+Amplimer 55
+	Sequence: contig_2454  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 278763 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [1186694] with 4 mismatches
+	Amplimer length: 194882 bp
+Amplimer 56
+	Sequence: contig_2454  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 278763 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [1078896] with 4 mismatches
+	Amplimer length: 302680 bp
+Amplimer 57
+	Sequence: contig_2525  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 538013 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [396946] with 4 mismatches
+	Amplimer length: 166708 bp
+Amplimer 58
+	Sequence: contig_2525  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 538013 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [3942] with 3 mismatches
+	Amplimer length: 559712 bp
+Amplimer 59
+	Sequence: contig_2421  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 1069221 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [789844] with 4 mismatches
+	Amplimer length: 434720 bp
+Amplimer 60
+	Sequence: contig_2421  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 1069221 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [641384] with 4 mismatches
+	Amplimer length: 583180 bp
+Amplimer 61
+	Sequence: contig_2421  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 1069221 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [401145] with 4 mismatches
+	Amplimer length: 823419 bp
+Amplimer 62
+	Sequence: contig_2873  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 245281 with 0 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [248045] with 0 mismatches
+	Amplimer length: 204 bp
+Amplimer 63
+	Sequence: contig_262  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 11437 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [1235460] with 4 mismatches
+	Amplimer length: 73420 bp
+Amplimer 64
+	Sequence: contig_262  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 6578 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [1235460] with 4 mismatches
+	Amplimer length: 78279 bp
+Amplimer 65
+	Sequence: contig_2797  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 184651 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [579894] with 4 mismatches
+	Amplimer length: 218101 bp
+Amplimer 66
+	Sequence: contig_2797  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 56643 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [579894] with 4 mismatches
+	Amplimer length: 346109 bp
+Amplimer 67
+	Sequence: contig_2879  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 135791 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [266873] with 4 mismatches
+	Amplimer length: 195391 bp
+Amplimer 68
+	Sequence: contig_464  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 1109249 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [577075] with 4 mismatches
+	Amplimer length: 166424 bp
+Amplimer 69
+	Sequence: contig_5142  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 33051 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [87493] with 4 mismatches
+	Amplimer length: 129216 bp
+Amplimer 70
+	Sequence: contig_5142  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 30829 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [87493] with 4 mismatches
+	Amplimer length: 131438 bp
+Amplimer 71
+	Sequence: contig_5312  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 508325 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [278271] with 4 mismatches
+	Amplimer length: 6179 bp
+Amplimer 72
+	Sequence: contig_5312  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 390818 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [98684] with 4 mismatches
+	Amplimer length: 303273 bp
+Amplimer 73
+	Sequence: contig_531  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 378214 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [287343] with 4 mismatches
+	Amplimer length: 189619 bp
+Amplimer 74
+	Sequence: contig_623  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 424534 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [264037] with 4 mismatches
+	Amplimer length: 4425 bp
+Amplimer 75
+	Sequence: contig_623  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 424534 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [246801] with 4 mismatches
+	Amplimer length: 21661 bp
+Amplimer 76
+	Sequence: contig_623  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 338250 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [264037] with 4 mismatches
+	Amplimer length: 90709 bp
+Amplimer 77
+	Sequence: contig_623  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 338250 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [246801] with 4 mismatches
+	Amplimer length: 107945 bp
+Amplimer 78
+	Sequence: contig_762  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 138533 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [155412] with 4 mismatches
+	Amplimer length: 112799 bp
+Amplimer 79
+	Sequence: contig_762  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 138533 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [119270] with 4 mismatches
+	Amplimer length: 148941 bp
+Amplimer 80
+	Sequence: contig_793  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 235214 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [212107] with 3 mismatches
+	Amplimer length: 206759 bp
+Amplimer 81
+	Sequence: contig_793  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 235214 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [65042] with 4 mismatches
+	Amplimer length: 353824 bp
+Amplimer 82
+	Sequence: contig_883  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 166696 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [14344] with 4 mismatches
+	Amplimer length: 32643 bp
+Amplimer 83
+	Sequence: contig_882  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 104246 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [657686] with 4 mismatches
+	Amplimer length: 251833 bp
+Amplimer 84
+	Sequence: scaffold_1983  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 251059 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [34846] with 4 mismatches
+	Amplimer length: 162527 bp
+Amplimer 85
+	Sequence: scaffold_1330  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 386646 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [318013] with 4 mismatches
+	Amplimer length: 154274 bp
+Amplimer 86
+	Sequence: scaffold_1330  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 386646 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [281935] with 4 mismatches
+	Amplimer length: 190352 bp
+Amplimer 87
+	Sequence: scaffold_1330  
+	
+	TTGATTGTCATTGGTTTTGC hits forward strand at 386646 with 4 mismatches
+	TGGACGATGGTTTTCATAGC hits reverse strand at [275989] with 4 mismatches
+	Amplimer length: 196298 bp
+Amplimer 88
+	Sequence: scaffold_2422  
+	
+	TGGACGATGGTTTTCATAGC hits forward strand at 356946 with 4 mismatches
+	TTGATTGTCATTGGTTTTGC hits reverse strand at [166355] with 3 mismatches
+	Amplimer length: 42242 bp
+
+Primer name DVSSR3
+Amplimer 1
+	Sequence: contig_2454  
+	
+	CCTCGGGCGGAACAATCG hits forward strand at 965575 with 0 mismatches
+	AGCATGTGAGGTGCAAGGC hits reverse strand at [694527] with 0 mismatches
+	Amplimer length: 237 bp
+
+Primer name DVSSR4
