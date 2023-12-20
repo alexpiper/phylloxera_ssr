@@ -198,11 +198,7 @@ target_microsat %>%
   dplyr::select(contig, start, end, class, motif_n, seqnames ) %>%
   write_tsv("target_microsats.bed", col_names = NA)
 
-# Write out unmerged bed of whole alignments
-#target_microsat %>%
-#  dplyr::select(contig, aln_start , aln_end, class, motif_n, seqnames ) %>%
-#  write_tsv("target_microsats.bed", col_names = NA)
-#
+
 # Merge overlapping microsattelites (see analyze_overlaps.py script from the hipstr program)https://github.com/HipSTR-Tool/HipSTR-references/blob/master/scripts/analyze_overlaps.py
 rng <- target_microsat %>% 
   dplyr::select(start, end, seqnames, contig, motif_n, class) %>%
@@ -241,15 +237,11 @@ to_merge <- as.data.frame(findOverlaps(rng, rng)) %>%
             class = unique(class_x, class_y)
             ) 
 
-# Need to merge the start and end as well
-
 new_metadata <- rng %>% as.data.frame() %>%
   mutate(queryHits = row_number(), subjectHits = row_number()) %>%
   filter((!queryHits %in% to_merge$queryHits) & (!subjectHits %in% to_merge$subjectHits) ) %>%
   bind_rows(to_merge) %>%
   dplyr::select(seqnames, contig, motif_n, start, end, class)
-
-# need to unextend
 
 # Write out merged bed for HIPSTR genotyping
 rng %>%
@@ -304,7 +296,6 @@ bedtools getfasta -fi /group/referencedata/mspd-db/genomes/insect/daktulosphaera
 ## Genotype SSRs with HipSTR
 
 ```{bash}
-
 ## Install into virtual environment
 cd ~
 module purge
@@ -314,7 +305,6 @@ source ~/hipstr/bin/activate
 git clone https://github.com/HipSTR-Tool/HipSTR
 cd HipSTR
 make
-
 
 # Install python dependencies
 pip install reportlab 
@@ -330,8 +320,6 @@ source ~/hipstr/bin/activate
 module load SAMtools/1.15-GCC-11.2.0
 module load BEDTools/2.30.0-GCC-10.2.0
 module load BCFtools/1.15-GCC-11.2.0
-
-#bamlist=$(find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) -maxdepth 1 | grep ".bam$" | sort | uniq | paste -s -d ',')
 
 # merge bams and subset to target regions, then  filter mapped reads
 find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) -maxdepth 1 | grep ".bam$" | sort | uniq > bamlist.txt
@@ -355,32 +343,15 @@ samtools index merged.bam
 samtools view merged_filtered2.bam | cut -f 5 | sort | uniq  -c | sort -n | awk '{printf("MAPQ:%s\t%d\n",$2,$1);}'  > mapq.txt
 
 ## Remove clipped reads
-# Get samclip tool
 
-
- samtools view -h merged_filtered2.bam | \
+samtools view -h merged_filtered2.bam | \
  /group/pathogens/IAWS/Projects/Phylloxera/microsat/samclip/samclip --ref /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta | \
  samtools sort > merged_filtered2_clipped.bam
 samtools index merged_filtered2_clipped.bam
-#
-## Get list of clipped reads (those with H or S in column 6)
-#samtools view merged_filtered.bam | awk '$6 ~ /H|S/{print $1}' | sort -k1,1 | uniq > names.txt
-## sort original bam on names:
-#samtools view merged_filtered.bam | sort -k1,1 > tmp.sam
-## get header
-#samtools view -H merged_filtered.bam > merged_filtered_noclipped.sam
-## outer-join (I use ctrl+v+tab to explicitly get the tab character)
-#join -t '   ' -v 1 -1 1 -2 1 tmp.sam names.txt >> merged_filtered_noclipped.sam
-## convert to bam
-#samtools view -bS merged_filtered_noclipped.sam > merged_filtered_noclipped.bam
-## index bam
-#samtools index merged_filtered_noclipped.bam
 
 # Subset bam to just the regions amplified by the microsat primers
 intersectBed -abam merged_filtered2_clipped.bam -b /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed > merged_filtered2_clipped_subset.bam
 samtools index merged_filtered2_clipped_subset.bam
-
-#rm merged_filtered_noclipped.sam
 
 # Subset bam to just the regions amplified by the microsat primers
 intersectBed -abam merged_filtered.bam -b /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed > merged_filtered_subset.bam
@@ -398,9 +369,6 @@ samtools index merged_filtered_subset.bam
 --min-flank-freq 0.01 \
 --output-filters \
 --log log.txt 
-
-
-
 
 #--regions /group/pathogens/IAWS/Projects/Phylloxera/microsat/trf_reference/final_trf_strs.bed \
 #--regions /group/pathogens/IAWS/Projects/Phylloxera/microsat/target_microsats_merged.bed \
@@ -497,11 +465,9 @@ while read r; do
   
         cat allele1.fa  >> ${outname}.fa
         cat allele2.fa  >> ${outname}.fa
-      #else
-        #echo -e ">${i}_${outname}_1_\n" >> ${outname}.fa
-        #echo -e ">${i}_${outname}_2_\n" >> ${outname}.fa
       fi
   done
+  
   # Align outputs
   mafft --maxiterate 1000 --localpair ${outname}.fa > ${outname}_aligned.fa
   mv ${outname}_aligned.fa fasta/.
@@ -583,7 +549,6 @@ flank_bed <- read_table("trf_ssr_edited.bed", col_names = c("contig", "start", "
 # Write out bed positions file of flanks only
 flank_bed %>% 
   write_tsv("flank_sequences.bed", col_names = NA)
-
 
 ```
 
@@ -688,20 +653,15 @@ gatk SelectVariants \
 --exclude-filtered \
 -O ssr_flanks_filtered.vcf.gz
 
-
 # Output fastas for first and second allele for each region
 module load MAFFT/7.453-gompi-2020a-with-extensions
 
 # Make temp vcf
 #cp ssr_flanks_tmp.vcf.gz tmp.vcf.gz
 cp ssr_flanks.vcf.gz tmp.vcf.gz
-
 tabix -f -p vcf tmp.vcf.gz
 
-
 mkdir gatk_fasta
-
-r=$(sed -n '1p' < /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed)
 
 while read r; do
   echo ${r}
@@ -758,14 +718,13 @@ cp ssr_flanks_filtered.vcf.gz gatk_calls.vcf.gz
 tabix -f -p vcf hipstr_calls.vcf.gz
 tabix -f -p vcf gatk_calls.vcf.gz
 
-
 # First filter GATK to file to remove samples where 
 module load MAFFT/7.453-gompi-2020a-with-extensions
 module load picard/2.21.4-Java-1.8
 
 r=$(sed -n '5p' < /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed)
 
-# HGMFWDSXY_Y21S0015-dv18g4vaitc8152 for contig_4038 is good test
+# HGMFWDSXY_Y21S0015-dv18g4vaitc8152 for contig_4038 is good test example
 
 mkdir combined_fasta
 while read r; do
@@ -792,11 +751,7 @@ while read r; do
       I=hipstr_tmp.vcf.gz \
       O=hipstr_tmp2.vcf.gz > /dev/null 2>&1
 
-      
       # Subset the GATK vcf 
-      #bcftools view gatk_calls.vcf.gz -s ${i} -Oz | \
-      #bcftools filter -i 'FILTER ="PASS"' -t $(cat tmp.regions) -Oz -o gatk_tmp.vcf.gz
-      # SHould i keep some filters-  maybe quality?
       bcftools view gatk_calls.vcf.gz -s ${i} -t $(cat tmp.regions) -Oz -o gatk_tmp.vcf.gz
       tabix -f -p vcf gatk_tmp.vcf.gz
       
@@ -841,9 +796,6 @@ while read r; do
   
         cat allele1.fa  >> ${outname}.fa
         cat allele2.fa  >> ${outname}.fa
-        #else
-        #echo -e ">${i}_${outname}_1_\n" >> ${outname}.fa
-        #echo -e ">${i}_${outname}_2_\n" >> ${outname}.fa
       fi
   done
   # Align outputs
@@ -854,110 +806,8 @@ done </group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed
 
 ```
 
-# Visualise outputs
 
-```{R}
-# Read in reference alleles
-ref_allele_seqs <- readDNAStringSet("doc/ref_ssrs.fa")
-names(ref_allele_seqs) <- names(ref_allele_seqs) %>% str_replace("DVSSR-", "DVSSR")
-
-ref_alleles <- microsat_primers %>% 
-  dplyr::filter(preferred == TRUE) %>%
-  pull(name) %>% 
-  tolower()
-
-# Read in full sequence region from reference genome
-refseq_regions <- readDNAStringSet("microsats.fa")
-
-# read in just microsattelite region from reference genome
-refseq_ssrs  <- readDNAStringSet("final_trf_strs.fa")
-
-
-library(DECIPHER)
-i=1
-
-for (i in 1:length(ref_alleles)){
-  print(ref_alleles[i])
-  # Get ref allele
-  ref_seq <- ref_allele_seqs[str_detect(tolower(names(ref_allele_seqs)), ref_alleles[i])]
-  ref_seq_id <- names(ref_seq) %>%
-    str_remove("\\| Dak.*$")%>%
-    str_remove("^.*gb\\|")
-  names(ref_seq) <- paste0(str_to_upper(ref_alleles[i]), "_", ref_seq_id)
-  
-  # Read in fastas
-  combined_fastas <- fs::dir_ls("combined_fasta/", glob="*.fa") 
-  
-  # Use the gatk fasta for DVIT4 as it failed with HIPSTR
-  gatk_fastas <- fs::dir_ls("gatk_fasta/", glob="*.fa") 
-  
-  fastas <- c(combined_fastas[!str_detect(combined_fastas, "Dvit4")], gatk_fastas[str_detect(gatk_fastas, "Dvit4")])
-  genotyped_seqs <- RemoveGaps(readDNAStringSet(fastas[str_detect(tolower(fastas), ref_alleles[i])]))
-  
-  # Keep only australian ones
-  genotyped_seqs <- genotyped_seqs[str_detect(names(genotyped_seqs), "vaitc")]
-  
-  if(length(genotyped_seqs) > 0) {
-    # Rename sequences
-    vaitc <- names(genotyped_seqs) %>%
-      str_extract("vaitc(.+?)_") %>%
-      str_remove("_") %>%
-      str_to_upper()
-    genotype <- names(genotyped_seqs) %>%
-      str_extract("g(.+?)v") %>%
-      str_remove("v")
-    haplotype <- names(genotyped_seqs) %>%
-      str_extract("_[0-9]_") %>%
-      str_remove_all("_")
-    
-    names(genotyped_seqs) <- paste0(vaitc, "_", genotype, "_",haplotype)
-      
-    # get full sequence region from reference genome
-    refseq_region <- refseq_regions[str_detect(tolower(names(refseq_regions)), ref_alleles[i])]
-    names(refseq_region) <- names(refseq_region) %>%
-      str_replace("^.*::", "DvgenomeV4_")
-    # get just microsattelite region from reference genome
-    refseq_ssr <- refseq_ssrs[str_detect(tolower(names(refseq_ssrs)), ref_alleles[i])]
-  
-    # Get primers
-    Fprimer <- microsat_primers %>%
-      filter(tolower(name) == ref_alleles[i]) %>%
-      pull(forward) %>%
-      DNAStringSet()
-    names(Fprimer) <- "Fprimer"
-    
-    Rprimer <- microsat_primers %>%
-      filter(tolower(name) == ref_alleles[i]) %>%
-      pull(reverse)%>%
-      DNAStringSet() %>%
-      reverseComplement()
-    names(Rprimer) <- "Rprimer"
-  
-    #Orient nucleotides
-    oriented <- DECIPHER::OrientNucleotides(c(ref_seq, refseq_region,genotyped_seqs))
-    aln <- DECIPHER::AlignSeqs(oriented)
-    
-    # color detected microsattelite
-    dir.create("output/alignments/html", recursive = TRUE)
-    BrowseSeqs(aln, 
-              #highlight=1,
-              patterns=
-              c(refseq_ssr,reverseComplement(refseq_ssr),
-              Fprimer, reverseComplement(Fprimer),
-              Rprimer, reverseComplement(Rprimer)),
-              htmlFile=paste0("output/alignments/html/combined_",ref_alleles[i],".html"),
-              openURL = FALSE)
-    
-    # Write out alignment
-    dir.create("output/alignments/fasta", recursive = TRUE)
-    writeXStringSet(aln, filepath=paste0("output/alignments/fasta/final_",ref_alleles[i],".fa"))
-  }
-}
-
-```
-
-# Compare to ABI data
-
+## Check filtering
 
 ```{r}
 # Make plot of why samples were removed 
@@ -1010,36 +860,138 @@ genotype_summary %>%
   group_by(locus, total) %>%
   dplyr::summarise(success = sum(pass == TRUE))
 
-# Replace this with those from the reference fastas? 
-# Output alignments?
+```
 
-#exp_length <- readxl::read_xlsx("doc/PhylloxeraGenotypes_DistanceTree.xlsx", #sheet="Data", skip = 2) %>%
-#  magrittr::set_colnames(c("genotype","status", "Dvit4_1", "DVit4_2", "Dvit6_1", #"Dvit6_2", "Dvit1_1", "Dvit1_2", "Dvit5_1", "Dvit5_2", "Dvit5_2","Dvit3_1", #"Dvit3_2", "Dvit2_1", "Dvit2_2")) %>%
-#  pivot_longer(-c("genotype", "status"),
-#               names_to="locus",
-#               values_to="exp_length") %>%
-#  mutate(genotype = str_replace(genotype, "G0", "G"))%>%
-#  mutate(strand = locus %>% str_remove("^.*_")%>% as.numeric(),
-#         locus = locus %>% str_remove("_.*$"))
+# Visualise outputs
 
-exp_length <- readxl::read_xlsx("doc/AlleleSizes.xlsx",range = "A11:Q18" ) %>%
-  dplyr::rename(genotype = Fluoroscent) %>%
+```{R}
+# Read in reference alleles
+ref_allele_seqs <- readDNAStringSet("doc/ref_ssrs.fa")
+names(ref_allele_seqs) <- names(ref_allele_seqs) %>% str_replace("DVSSR-", "DVSSR")
+
+ref_alleles <- microsat_primers %>% 
+  dplyr::filter(preferred == TRUE) %>%
+  pull(name) %>% 
+  tolower()
+
+# Read in full sequence region from reference genome
+refseq_regions <- readDNAStringSet("microsats.fa")
+
+# read in just microsattelite region from reference genome
+refseq_ssrs  <- readDNAStringSet("final_trf_strs.fa")
+
+
+library(DECIPHER)
+i=1
+
+for (i in 1:length(ref_alleles)){
+  print(ref_alleles[i])
+  # Get ref allele
+  ref_seq <- ref_allele_seqs[str_detect(tolower(names(ref_allele_seqs)), ref_alleles[i])]
+  ref_seq_id <- names(ref_seq) %>%
+    str_remove("\\| Dak.*$")%>%
+    str_remove("^.*gb\\|")
+  names(ref_seq) <- paste0(str_to_upper(ref_alleles[i]), "_", ref_seq_id)
+  
+  # Read in fastas
+  combined_fastas <- fs::dir_ls("combined_fasta/", glob="*.fa") 
+  
+  # Use the gatk fasta for DVIT4 as it failed with HIPSTR
+  gatk_fastas <- fs::dir_ls("gatk_fasta/", glob="*.fa") 
+  
+  fastas <- c(combined_fastas[!str_detect(combined_fastas, "Dvit4")], gatk_fastas[str_detect(gatk_fastas, "Dvit4")])
+  genotyped_seqs <- RemoveGaps(readDNAStringSet(fastas[str_detect(tolower(fastas), ref_alleles[i])]))
+  
+  # Keep only australian ones
+  genotyped_seqs <- genotyped_seqs[str_detect(names(genotyped_seqs), "vaitc")]
+  
+  if(length(genotyped_seqs) > 0) {
+    # Rename sequences
+    sample_id <- names(genotyped_seqs) %>%
+      str_remove("^(.*?)-") %>%
+      str_remove("g[0-9].*$")
+    vaitc <- names(genotyped_seqs) %>%
+      str_extract("vaitc(.+?)_") %>%
+      str_remove("_") %>%
+      str_to_upper()
+    genotype <- names(genotyped_seqs) %>%
+      str_extract("g(.+?)v") %>%
+      str_remove("v")
+    haplotype <- names(genotyped_seqs) %>%
+      str_extract("_[0-9]_") %>%
+      str_remove_all("_")
+    
+    names(genotyped_seqs) <- paste0(sample_id, "_", vaitc, "_", genotype, "_",haplotype)
+      
+    # get full sequence region from reference genome
+    refseq_region <- refseq_regions[str_detect(tolower(names(refseq_regions)), ref_alleles[i])]
+    names(refseq_region) <- names(refseq_region) %>%
+      str_replace("^.*::", "DvgenomeV4_")
+    # get just microsattelite region from reference genome
+    refseq_ssr <- refseq_ssrs[str_detect(tolower(names(refseq_ssrs)), ref_alleles[i])]
+  
+    # Get primers
+    Fprimer <- microsat_primers %>%
+      filter(tolower(name) == ref_alleles[i]) %>%
+      pull(forward) %>%
+      DNAStringSet()
+    names(Fprimer) <- "Fprimer"
+    
+    Rprimer <- microsat_primers %>%
+      filter(tolower(name) == ref_alleles[i]) %>%
+      pull(reverse)%>%
+      DNAStringSet() %>%
+      reverseComplement()
+    names(Rprimer) <- "Rprimer"
+  
+    #Orient nucleotides
+    oriented <- DECIPHER::OrientNucleotides(c(ref_seq, refseq_region,genotyped_seqs))
+    aln <- DECIPHER::AlignSeqs(oriented)
+    
+    # color detected microsattelite
+    dir.create("output/alignments/html", recursive = TRUE)
+    BrowseSeqs(aln, 
+              #highlight=1,
+              patterns=
+              c(refseq_ssr,reverseComplement(refseq_ssr),
+              Fprimer, reverseComplement(Fprimer),
+              Rprimer, reverseComplement(Rprimer)),
+              htmlFile=paste0("output/alignments/html/combined_",ref_alleles[i],".html"),
+              openURL = FALSE)
+    
+    # Write out alignment
+    dir.create("output/alignments/fasta", recursive = TRUE)
+    writeXStringSet(aln, filepath=paste0("output/alignments/fasta/final_",ref_alleles[i],".fa"))
+  }
+}
+
+```
+
+# Compare to original data
+
+```{R}
+
+exp_length <- readxl::read_xlsx("doc/AlleleSizes.xlsx",range = "A1:M8" ) %>%
+  dplyr::rename(genotype = Original) %>%
    pivot_longer(-c("genotype"),
                names_to="locus",
                values_to="exp_length") %>%
   mutate(genotype = str_replace(genotype, "G0", "G"))%>%
   mutate(strand = locus %>% str_remove("^.*_")%>% as.numeric(),
-         locus = locus %>% str_remove("_.*$")) %>%
+         locus = locus %>% str_remove("_.*$") %>% str_to_upper()) %>%
   mutate(exp_length = round(exp_length))
 
 # Read in fastas and get size
-seqs <- fs::dir_ls("combined_fasta/", glob="*.fa") %>%
+seqs <- fs::dir_ls("output/alignments/fasta/", glob="*final_*.fa") %>%
   purrr::map(function(x){
     if (file.size(x) > 0){
-      insect::readFASTA(x)
+      locus <- x %>% str_remove("^.*_") %>% str_remove(".fa") %>% str_to_upper()
+      out <- insect::readFASTA(x)
+      names(out) <- paste0(locus, ":", names(out))
     } else {
-      NULL
+      out <- NULL
     }
+    return(out)
   }) %>%
   taxreturn::concat_DNAbin()
 
@@ -1047,23 +999,16 @@ seqs <- fs::dir_ls("combined_fasta/", glob="*.fa") %>%
 BrowseSeqs(taxreturn::DNAbin2DNAstringset(seqs))
 
 # Subset to australian strains and remove gaps for counting length
-seqs <- seqs[str_detect(names(seqs), "vaitc|Australia")]
+seqs <- seqs[str_detect(names(seqs), "VAITC")]
 seqs <- ape::del.gaps(seqs)
 
 obs_length <- enframe(names(seqs), value="name", name=NULL) %>%
-  mutate(name = name %>% str_replace("Australia_", "Australia-SRR10418414gA7_"),
-         contig = str_remove(name, "^.*contig_"),
-         name = name %>%
-            str_remove("_contig.*$") %>%
-            str_remove("^.*-"),
-         locus = name %>% str_remove("^.*?_"),
-         name = name %>% 
-           str_remove("_.*$") %>%
-           str_remove("vaitc.*$"),
-         sample_id = name %>% str_remove("g.*$"),
-         genotype = name %>% str_remove(sample_id) %>% toupper(),
-         strand = locus %>% str_remove("^.*_") %>% as.numeric(),
-         locus = locus %>% str_remove("_.*$")) %>%
+  mutate(locus = name %>% str_remove(":.*$"),
+         sample_id = name %>% str_remove("^.*:") %>% str_remove("_.*$"),
+         vaitc = name %>% str_remove("^.*:") %>% str_remove("^(.*?)_") %>% str_remove("_.*$"),
+         strand = name %>% str_remove("^.*_") %>% as.numeric(),
+         genotype = name %>% str_remove("_[0-9]$")%>% str_remove("^.*_")  %>% str_to_upper()
+         ) %>%
   dplyr::select(-name) %>%
   mutate(length = lengths(seqs))
 
@@ -1083,10 +1028,10 @@ joint <- obs_length %>%
       
       if(length(unique(first_match$best_hap_match)) > 1){
         out <- first_match %>%
-        mutate(strand = best_hap_match,
-               matched = strand==best_hap_match) %>%
-        dplyr::select(-best_hap_match, -resid) %>%
-        left_join(potential, by = c("locus", "genotype", "strand"))
+          mutate(strand = best_hap_match,
+                 matched = strand==best_hap_match) %>%
+          dplyr::select(-best_hap_match, -resid) %>%
+          left_join(potential, by = c("locus", "genotype", "strand"))
         return(out)
       }else{
         out <- first_match %>%
@@ -1097,10 +1042,12 @@ joint <- obs_length %>%
           dplyr::select(-best_hap_match, -best_hap_match2, -resid) %>%
           left_join(potential, by = c("locus", "genotype", "strand")) %>%
           arrange(strand)
-        return(x)
+        return(out)
       }
     } else{
-      return(x)
+      out <- x %>%
+         left_join(potential, by = c("locus", "genotype", "strand"))
+      return(out)
     }
   }) %>%
   bind_rows()  %>%
@@ -1108,15 +1055,17 @@ joint <- obs_length %>%
 
 # Calculate RMSE between expected and observed allele lengths
 joint %>%
+  filter(!is.na(exp_length)) %>%
   rmse(truth=exp_length, estimate=length)
 
 # Plot 2 - Faceted, allele size Y axis, sample x axis
 joint %>%
+    filter(!is.na(exp_length)) %>%
     pivot_longer(cols=ends_with("length"),
                names_to = "type",
                values_to="length") %>%
   mutate(type = type %>% str_replace("exp_length", "Capilliary") %>% str_replace("length", "Illumina")) %>%
-  mutate(locus = factor(locus, levels=c("Dvit1", "Dvit2", "Dvit3", "Dvit4", "Dvit5", "Dvit6"))) %>%
+  mutate(locus = factor(locus, levels=c("DVIT1", "DVIT2", "DVIT3", "DVIT4", "DVIT5", "DVIT6"))) %>%
   ggplot(aes(y = length, x = sample_id, colour=type, shape=as.factor(strand))) +
   geom_point(position=position_dodge(width=0.5), alpha=0.7) +
   scale_color_brewer(palette="Set1")+
@@ -1128,14 +1077,10 @@ joint %>%
   labs(shape= "Alelle",
        colour = "Technology")
 
-
-# Create tree of both datasets
-
-
 # Format same as marks table and output
 formatted_sizes <- joint %>%
   mutate(locus = paste0(locus, "_", strand)) %>%
-  dplyr::filter(genotype %in% c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")) %>%
+  dplyr::filter(genotype %in% c("G1", "G4", "G7","G19", "G20","G30", "G38")) %>%
   group_by(genotype, locus) %>%
   dplyr::summarise(length = paste0(sort(unique(length)), collapse = "/")) %>%
   dplyr::select(locus, genotype, length) %>%
@@ -1143,131 +1088,16 @@ formatted_sizes <- joint %>%
               values_from = "length") %>%
   dplyr::select(any_of(c(
     "genotype", 
-    "Dvit1_1", "Dvit1_2", 
-    "Dvit2_1", "Dvit2_2",
-    "Dvit3_1", "Dvit3_2",
-    "Dvit4_1", "Dvit4_2",
-    "Dvit5_1", "Dvit5_2",
-    "Dvit6_1", "Dvit6_2",
+    "DVIT1_1", "DVIT1_2", 
+    "DVIT2_1", "DVIT2_2",
+    "DVIT3_1", "DVIT3_2",
+    "DVIT4_1", "DVIT4_2",
+    "DVIT5_1", "DVIT5_2",
+    "DVIT6_1", "DVIT6_2",
     "DVSSR3_1", "DVSSR3_2",
     "DVSSR4_1", "DVSSR4_2"
     ))) %>%
-  arrange(match(genotype, c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")))
+  arrange(match(genotype, c("G1", "G4", "G7","G19", "G20","G30", "G38")))
 
 write_csv(formatted_sizes, "output/formatted_sizes_new.csv")
-```
-
-
-# Align against reference alleles
-
-```{r}
-
-exp_length <- readxl::read_xlsx("doc/AlleleSizes.xlsx",range = "A11:Q18" ) %>%
-  dplyr::rename(genotype = Fluoroscent) %>%
-   pivot_longer(-c("genotype"),
-               names_to="locus",
-               values_to="exp_length") %>%
-  mutate(genotype = str_replace(genotype, "G0", "G"))%>%
-  mutate(strand = locus %>% str_remove("^.*_")%>% as.numeric(),
-         locus = locus %>% str_remove("_.*$")) %>%
-  mutate(exp_length = round(exp_length))
-
-# Read in fastas and get size
-seqs <- fs::dir_ls("gatk_fasta/", glob="*.fa") %>%
-  purrr::map(function(x){
-    if (file.size(x) > 0){
-      insect::readFASTA(x)
-    } else {
-      NULL
-    }
-  }) %>%
-  taxreturn::concat_DNAbin()
-
-# View alignments
-BrowseSeqs(taxreturn::DNAbin2DNAstringset(seqs))
-
-# Subset to australian strains and remove gaps for counting length
-seqs <- seqs[str_detect(names(seqs), "vaitc|Australia")]
-seqs <- ape::del.gaps(seqs)
-
-obs_length <- enframe(names(seqs), value="name", name=NULL) %>%
-  mutate(name = name %>% str_replace("Australia_", "Australia-SRR10418414gA7_"),
-         contig = str_remove(name, "^.*contig_"),
-         name = name %>%
-            str_remove("_contig.*$") %>%
-            str_remove("^.*-"),
-         locus = name %>% str_remove("^.*?_"),
-         name = name %>% 
-           str_remove("_.*$") %>%
-           str_remove("vaitc.*$"),
-         sample_id = name %>% str_remove("g.*$"),
-         genotype = name %>% str_remove(sample_id) %>% toupper(),
-         strand = locus %>% str_remove("^.*_") %>% as.numeric(),
-         locus = locus %>% str_remove("_.*$")) %>%
-  dplyr::select(-name) %>%
-  mutate(length = lengths(seqs))
-
-
-joint <- obs_length %>%
-  group_by(sample_id, locus)%>%
-  group_split() %>%
-  purrr::map(function(x){ # Make sure the strands match (i.e. length differences are closest)
-    potential <- exp_length %>%
-      filter(genotype %in% x$genotype,
-             locus %in% x$locus) %>%
-      arrange(strand)
-    if(all(!is.na(potential$exp_length)) & length(unique(potential$exp_length)) > 1){
-      first_match <- x %>% 
-        mutate(resid = abs(potential$exp_length-length)) %>%
-        mutate(best_hap_match = which(resid==min(abs(potential$exp_length-length))))
-      
-      if(length(unique(first_match$best_hap_match)) > 1){
-        out <- first_match %>%
-        mutate(strand = best_hap_match,
-               matched = strand==best_hap_match) %>%
-        dplyr::select(-best_hap_match, -resid) %>%
-        left_join(potential, by = c("locus", "genotype", "strand"))
-        return(out)
-      }else{
-        out <- first_match %>%
-          arrange(resid) %>%
-          mutate(best_hap_match2 = row_number(),
-                 strand = best_hap_match2,
-                 matched = strand==best_hap_match2) %>%
-          dplyr::select(-best_hap_match, -best_hap_match2, -resid) %>%
-          left_join(potential, by = c("locus", "genotype", "strand")) %>%
-          arrange(strand)
-        return(x)
-      }
-    } else{
-      return(x)
-    }
-  }) %>%
-  bind_rows()  %>%
-  mutate(residual = abs(exp_length - length))
-
-
-# Format same as marks table and output
-formatted_sizes <- joint %>%
-  mutate(locus = paste0(locus, "_", strand)) %>%
-  dplyr::filter(genotype %in% c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")) %>%
-  group_by(genotype, locus) %>%
-  dplyr::summarise(length = paste0(sort(unique(length)), collapse = "/")) %>%
-  dplyr::select(locus, genotype, length) %>%
-  pivot_wider(names_from = "locus",
-              values_from = "length") %>%
-  dplyr::select(any_of(c(
-    "genotype", 
-    "Dvit1_1", "Dvit1_2", 
-    "Dvit2_1", "Dvit2_2",
-    "Dvit3_1", "Dvit3_2",
-    "Dvit4_1", "Dvit4_2",
-    "Dvit5_1", "Dvit5_2",
-    "Dvit6_1", "Dvit6_2",
-    "DVSSR3_1", "DVSSR3_2",
-    "DVSSR4_1", "DVSSR4_2"
-    ))) %>%
-  arrange(match(genotype, c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")))
-
-write_csv(formatted_sizes, "output/formatted_sizes_gatk.csv")
 ```
