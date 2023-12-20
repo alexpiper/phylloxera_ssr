@@ -18,13 +18,17 @@ knitr::opts_chunk$set(echo = TRUE)
   "devtools",
   "ggplot2",
   "gridExtra",
-  "tidyverse", 
+  "tidyverse",
+  "tidymodels",
   "vroom",
   "patchwork"
   )
 
 .bioc_packages <- c(
-  "Biostrings"
+  "Biostrings",
+  "DECIPHER",
+  "IRanges",
+  "plyranges"
   )
 
 .inst <- .cran_packages %in% installed.packages()
@@ -42,9 +46,14 @@ if(any(!.inst)) {
 #Load all published packages
 sapply(c(.cran_packages,.bioc_packages), require, character.only = TRUE)
 
+# Source themes
+source("R/themes.R")
+
 ```
 
-# characterise all microsatts with PERF
+# SSR locations
+
+## PERF
 
 
 ```{bash}
@@ -63,17 +72,16 @@ python setup.py install
 pip install numpy
 
 # Run perf of phylloxera reference genome
-cd /group/pathogens/Alexp/microsat
-PERF -i /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta \
+cd /group/pathogens/IAWS/Projects/Phylloxera/microsat
+PERF -i /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta \
 --min-length 12 --min-motif-size 1 --max-motif-size 10 \
--g /group/pathogens/Alexp/genomes/phylloxera/OGS3.2_20180216.gff3 --up-promoter 1000 --down-promoter 1000 \
+-g /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/OGS3.2_20180216.gff3 --up-promoter 1000 --down-promoter 1000 \
 -o PERF_output.tsv -a
 
 ```
 
-# Characterise all microsats with TRF
+## TRF
 
-See: https://github.com/HipSTR-Tool/HipSTR-references/blob/master/mouse/mouse_reference.md
 ```{bash}
 # Download necessary scripts
 git clone https://github.com/HipSTR-Tool/HipSTR-references.git
@@ -84,7 +92,7 @@ chmod 755 trf409.legacylinux64
 chmod 755 scripts/run_TRF.sh
 
 mkdir dv
-./scripts/run_TRF.sh /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta dv/trf_results 5
+./scripts/run_TRF.sh /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta dv/trf_results 5
 
 
 # filter out repeats with a period longer than 6 and fix a few issues with incorrect TRF entries
@@ -99,94 +107,21 @@ python scripts/fix_trf_output.py dv/trf_results/Dv_genome_V4.0.fasta dv/fixed_tr
 
 ```
 
-# Plot perf results
-
-- Pie chart of repeat sequence length
-
-- Line plot of repeat sequence length vs abundance
-
-```{r perf plotting}
-perf_res <- vroom::vroom("output/PERF_output.tsv",col_names = c("chr", "start", "stop", "class", "length", "strand", "motif_n", "repeat_seq")) %>%
-  mutate(class = nchar(class)) %>%
-  #mutate(class = case_when(
-  #  class == 1 ~ "Monomer",
-  #  class == 2 ~ "Dimer",
-  #  class == 3 ~ "Trimer",
-  #  class == 4 ~ "Tetramer",
-  #  class == 5 ~ "Pentamer",
-  #  class == 6 ~ "Hexamer",
-  #  
-  #  
-  #)) %>%
-  filter(!is.na(class))
-
-
-# Repeat seqeunce length vs abundance
-perf_res %>%
-  filter(!is.na(class)) %>%
-  mutate(class = factor(class)) %>%
-  ggplot(aes(x = length, colour=class, group=class)) +
-  geom_freqpoly() +
-  scale_color_brewer(palette = "Paired") +
-  labs(x = "Repeat length (bp)",
-       y = "Repeat abundance",
-       colour = "Motif length (bp)"
-       )
-
-test <- perf_res %>%
-  filter(chr == "contig_918")
-
-```
-
-# Get positions of the 6 known microsattelites
-
-amplification priemrs:
-
 ## Create primers file
 
 ```{r}
-#microsat_primers <- tibble::tribble(
-#  ~name, ~forward, ~reverse, ~ref, ~preferred, ~contig, ~start_pos, ~end_pos,
-#  "Dvit1", "CGTTCGTTCTGGTATGGTTATT", "TAACGACCCGACTGAAATGTAG", "Corrie_et_al_2002", TRUE, "contig_4228", 246034, 246090,
-#	"Dvit2", "GCTTAATTTTGTGTCTCAAGTTA", "TAATGCTTCGTTTTCTAAGTGC", "Corrie_et_al_2002", TRUE, "contig_918", 485615, 485647,
-#	"Dvit3", "CCAAAACAACCAAGATTTTCTCC", "GATCCAAACTATGACAAACACCC", "Corrie_et_al_2002", TRUE, "contig_1556", 733473, 733501,
-#	"Dvit4", "TCTTCAAAAATGTTACATGAT", "TATACAATGAATGGTATCAATTC", "Corrie_et_al_2002", TRUE, "contig_2044", 52725, 52746,
-#	"Dvit5", "AAATCCGTTCGGTGAGAGC", "TATGGTCAATGGTCAATCCGTC", "Umina_et_al_2007", TRUE, "contig_1794", 304014, 304031,
-#	"Dvit6", "TGGACGATGGTTTTCATAGC", "TTGATTGTCATTGGTTTTGC", "Forneck_et_al_2006", TRUE, "contig_2873", 245493, 245529,
-#	"DVSSR1", "CGGCGACGAGTTAAACTATC", "TCGTTGTATAGATCTGTGTTGC", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR2", "TCGCTACTACCAGCCGATCAG", "TGAACAATGAAAGCCCTGGTGG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR3", "AGCATGTGAGGTGCAAGGC", "CCTCGGGCGGAACAATCG", "Lin_et_al_2006", TRUE, "contig_2454",965547, 965557,
-# 	"DVSSR4", "TGGTATTCACCTTGGAGCCTAG", "GCTACTGAAACCCCTTCAACAC", "Lin_et_al_2006", TRUE, "contig_4038", 75595, 75619,
-# 	"DVSSR5", "TAGTCTTCTTCCTCGCCATC", "CCGTGGTATCCATCAATATAATC", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR6", "GTTTACTGAAATAAGGGCTGG", "AGTTGTGATTATAAGCCGAGG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR7", "GTGAGTTGACTGTTGATTCG", "CGCAATTCATTCGGTTACC", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR8", "GGTCGTCCCAGTAAACGTAATC", "TGTTTGATAACGGTGATGGTGG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR9", "CGCAATTCATTCGGTTACC", "GTGAGTTGACTGTTGATTCG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR10", "ACTTACTCATACCACCAGTTCG", "CCTATCTACATCCGGCAGTG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR11", "GCCGAAAGGTCTCTAACTGAG", "CCAATAAAACAGTAACGCATTC", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR12", "GCTTGGGCGTGTATTTGTTTGC", "AGTGTCGAGAGAGGACTTACCG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR13", "AGGGCACTCTGATGAATCG", "GTCAAGTCCAATGAGCGTATC", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR14", "GTAGCTTAACATCGCCCATTAC", "CCTAAACAGGCCGATACAAAAC", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR15", "GAATAGCAACACTAGAGTAAGATC", "CATGGCCAATGGTTTGAGAC", "Lin_et_al_2006", FALSE, NA, NA, NA,
-# 	"DVSSR16", "AGACCAGACGCGAGCAATG", "ACCATCAATGAAAGCCTTGTCG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-#  "DVSSR17", "CTCTGTGTAGCCAAGTCAAC", "TATCCTACGCCAGTAAGAAG", "Lin_et_al_2006", FALSE, NA, NA, NA,
-#  "DVSSR18", "CGATATCGTATTTCTGAATAA", "GGGCGTTCGGGTAGAATCG", "Lin_et_al_2006", FALSE, NA, NA, NA
-#)
-
-# Note need to be wary of forward and reverse being in different directiosn to genome assembly strand
-
 microsat_primers <- tibble::tribble(
   ~name, ~forward, ~reverse, ~ref, ~preferred, ~contig, ~for_start, ~for_end, ~rev_start, ~rev_end,
-  "Dvit1", "CGTTCGTTCTGGTATGGTTATT", "TAACGACCCGACTGAAATGTAG", "Corrie_et_al_2002", TRUE, "contig_4228", 246262,246283 , 246136, 246157, # Forward located by adding 145bp to base position, no blast hit
+  "Dvit1", "CGTTCGTTCTGGTATCGTTATT", "TAACGACCCGACTGAAATGTAG", "Corrie_et_al_2002", TRUE, "contig_4228", 246267,246248 , 246157, 246136,
 	"Dvit2", "GCTTAATTTTGTGTCTCAAGTTA", "TAATGCTTCGTTTTCTAAGTGC", "Corrie_et_al_2002", TRUE, "contig_918", 485806, 485786, 485551, 485572,
 	"Dvit3", "CCAAAACAACCAAGATTTTCTCC", "GATCCAAACTATGACAAACACCC", "Corrie_et_al_2002", TRUE, "contig_1556", 733573, 733551, 733401, 733423,
-	"Dvit4", "TCTTCAAAAATGTTACATGAT", "TATACAATGAATGGTATCAATTC", "Corrie_et_al_2002", TRUE, "contig_2044", 52648, 52666, 52807, 52785,
+	"Dvit4", "TCTTCAAAAATGTTACATGAT", "TATACAATGAATGGTATCAATTC", "Corrie_et_al_2002", TRUE, "contig_2044", 52646, 52666, 52807, 52785,
 	"Dvit5", "AAATCCGTTCGGTGAGAGC", "TATGGTCAATGGTCAATCCGTC", "Umina_et_al_2007", TRUE, "contig_1794", 303973, 303991, 304101, 304080, # Many hits
 	"Dvit6", "TGGACGATGGTTTTCATAGC", "TTGATTGTCATTGGTTTTGC", "Forneck_et_al_2006", TRUE, "contig_2873", 245484, 245465, 245281, 245300,
 	"DVSSR1", "CGGCGACGAGTTAAACTATC", "TCGTTGTATAGATCTGTGTTGC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
  	"DVSSR2", "TCGCTACTACCAGCCGATCAG", "TGAACAATGAAAGCCCTGGTGG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
  	"DVSSR3", "AGCATGTGAGGTGCAAGGC", "CCTCGGGCGGAACAATCG", "Lin_et_al_2006", TRUE, "contig_2454",965811, 965793, 965575, 965592,
- 	"DVSSR4", "TGGTATTCACCTTGGAGCCTAG", "GCTACTGAAACCCCTTCAACAC", "Lin_et_al_2006", TRUE, "contig_4038", 75571, 75591, 75820, 75799,
+ 	"DVSSR4", "TGGTATTCACCTTGGAGCCTAG", "GCTACTGAAACCCCTTCAACAC", "Lin_et_al_2006", TRUE, "contig_4038", 75570, 75591, 75820, 75799,
  	"DVSSR5", "TAGTCTTCTTCCTCGCCATC", "CCGTGGTATCCATCAATATAATC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
  	"DVSSR6", "GTTTACTGAAATAAGGGCTGG", "AGTTGTGATTATAAGCCGAGG", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
  	"DVSSR7", "GTGAGTTGACTGTTGATTCG", "CGCAATTCATTCGGTTACC", "Lin_et_al_2006", FALSE, NA, NA, NA, NA, NA,
@@ -233,11 +168,12 @@ microsat_primers %>%
 
 
 # Filter perf results to only those detected within primer bindign sites
+
 target_microsat <- perf_res %>%
   filter(!is.na(class)) %>%
   dplyr::rename(contig = chr) %>%
   filter(contig %in% microsat_primers$contig) %>%
-  group_by() %>%
+  group_by(contig) %>%
   group_split() %>%
   purrr::map(function(x){
     x %>% 
@@ -246,55 +182,126 @@ target_microsat <- perf_res %>%
       filter(start > aln_start,
              stop < aln_end)
   }) %>%
-  bind_rows()
+  bind_rows()  %>%
+  dplyr::rename(end = stop, seqnames = name)
 
-# Write out unmerged one for HIPSTR genotyping
+# Write out unmerged bed for HIPSTR genotyping
 target_microsat %>%
   group_by(contig) %>%
   arrange(start)%>%
   mutate(n = row_number()) %>%
-  mutate(name = case_when(
-    n > 1 ~ paste0(name, "_", n),
-    TRUE ~ name
-  ))%>%
-  dplyr::select(contig, start, stop, class, motif_n, name ) %>%
+  mutate(seqnames = as.character(seqnames)) %>%
+  mutate(seqnames = case_when(
+    n > 1 ~ paste0(seqnames, "_", n),
+    TRUE ~ seqnames
+  )) %>%
+  dplyr::select(contig, start, end, class, motif_n, seqnames ) %>%
   write_tsv("target_microsats.bed", col_names = NA)
-  
 
-# Merge overlapping microsattelites (see analyze_overlaps.py script from the hipstr program)
+# Write out unmerged bed of whole alignments
+#target_microsat %>%
+#  dplyr::select(contig, aln_start , aln_end, class, motif_n, seqnames ) %>%
+#  write_tsv("target_microsats.bed", col_names = NA)
+#
+# Merge overlapping microsattelites (see analyze_overlaps.py script from the hipstr program)https://github.com/HipSTR-Tool/HipSTR-references/blob/master/scripts/analyze_overlaps.py
+rng <- target_microsat %>% 
+  dplyr::select(start, end, seqnames, contig, motif_n, class) %>%
+  as_granges() %>%
+  anchor_5p() %>%
+  stretch(10) %>%
+  sort()  
 
-# extract entries that aren't within 10bp of another entry or are within 10bp of one or more entries that all share the same period
+# Find the ones that will be merged and merge metadata
+to_merge <- as.data.frame(findOverlaps(rng, rng)) %>%
+  dplyr::filter((!queryHits == subjectHits) & (!(queryHits+1) == subjectHits)) %>%
+  left_join(rng %>%
+              as.data.frame() %>%
+              mutate(queryHits = row_number()) %>%
+              dplyr::select(queryHits, 
+                            seqnames_x = seqnames,
+                            motif_n_x = motif_n,
+                            contig, 
+                            start_x = start, 
+                            class_x = class,
+                            end_x = end))%>%
+  left_join(rng %>%
+              as.data.frame() %>%
+              mutate(subjectHits = row_number()) %>%
+              dplyr::select(subjectHits, 
+                            seqnames_y = seqnames, 
+                            motif_n_y = motif_n, 
+                            start_y = start, 
+                            class_y = class,
+                            end_y = end)) %>%
+  group_by(queryHits, subjectHits, contig) %>%
+  summarise(seqnames = unique(seqnames_x, seqnames_y), 
+            motif_n = motif_n_x + motif_n_y,
+            start = min(start_x, start_y),
+            end = max(end_x, end_y),
+            class = unique(class_x, class_y)
+            ) 
+
+# Need to merge the start and end as well
+
+new_metadata <- rng %>% as.data.frame() %>%
+  mutate(queryHits = row_number(), subjectHits = row_number()) %>%
+  filter((!queryHits %in% to_merge$queryHits) & (!subjectHits %in% to_merge$subjectHits) ) %>%
+  bind_rows(to_merge) %>%
+  dplyr::select(seqnames, contig, motif_n, start, end, class)
+
+# need to unextend
+
+# Write out merged bed for HIPSTR genotyping
+rng %>%
+  reduce() %>%
+  as.data.frame() %>%
+  left_join(new_metadata) %>%
+  group_by(contig) %>%
+  arrange(start)%>%
+  mutate(end = end - 10) %>% #Remove the 10bp that was added earlier to facilate merging
+  mutate(n = row_number()) %>%
+  mutate(seqnames = as.character(seqnames)) %>%
+  mutate(seqnames = case_when(
+    n > 1 ~ paste0(seqnames, "_", n),
+    TRUE ~ seqnames
+  )) %>%
+  dplyr::select(contig, start, end, class, motif_n, seqnames ) %>%
+  write_tsv("target_microsats_merged.bed", col_names = NA)
 
 ```
-## Get primer bindign positions
+
+## Get primer binding positions
 
 ```{bash}
 module load EMBOSS/6.6.0-GCC-8.2.0-2.31.1
-cd /group/pathogens/Alexp/microsat
-primersearch -seqall /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta \
--infile /group/pathogens/Alexp/microsat/primers.txt \
+cd /group/pathogens/IAWS/Projects/Phylloxera/microsat
+primersearch -seqall /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta \
+-infile /group/pathogens/IAWS/Projects/Phylloxera/microsat/primers.txt \
 -mismatchpercent 20 \
 -outfile microsatt.primersearch
-
-
 ```
 
-
-## Extract regions from genome for manual checking
+## Extract  regions from reference genome
 
 ```{bash}
-dos2unix extract_bed_region.sh
-dos2unix microsats.bed
-find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) | grep ".bam$" | sort | uniq > extraction_job_index.txt
-joblength=$(cat extraction_job_index.txt | wc -l)
-sbatch --array=1-$joblength extract_bed_region.sh /group/pathogens/Alexp/microsat/microsats.bed 
+module load BEDTools/2.30.0-GCC-10.2.0
 
+cd /group/pathogens/IAWS/Projects/Phylloxera/microsat
 
-# split by loci and merge files
+# Extract entire alignment region
+# Take 1 from the start column in bed
+awk -v OFS="\t" '{$2-=1}1' /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed > tmp.bed
+bedtools getfasta -fi /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -bed tmp.bed -name > microsats.fa
 
+# Extract just the genotyped microsat 
+# Take 1 from the start column in bed
+awk -v OFS="\t" '{$2-=1}1' /group/pathogens/IAWS/Projects/Phylloxera/microsat/trf_reference/final_trf_strs.bed > tmp.bed
+bedtools getfasta -fi /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -bed tmp.bed -name > final_trf_strs.fa
 ```
 
-## Genotype microsattelites in WGS data using HipSTR
+# Genotyping
+
+## Genotype SSRs with HipSTR
 
 ```{bash}
 
@@ -308,86 +315,959 @@ git clone https://github.com/HipSTR-Tool/HipSTR
 cd HipSTR
 make
 
-# Install python modules for visualising
+
+# Install python dependencies
 pip install reportlab 
 pip install svglib
+pip install PyVCF
+
+# RUn genotyping
+cd /group/pathogens/IAWS/Projects/Phylloxera/microsat
+
+module purge
+module load Python/3.8.2-GCCcore-9.3.0 
+source ~/hipstr/bin/activate
+module load SAMtools/1.15-GCC-11.2.0
+module load BEDTools/2.30.0-GCC-10.2.0
+module load BCFtools/1.15-GCC-11.2.0
+
+#bamlist=$(find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) -maxdepth 1 | grep ".bam$" | sort | uniq | paste -s -d ',')
+
+# merge bams and subset to target regions, then  filter mapped reads
+find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) -maxdepth 1 | grep ".bam$" | sort | uniq > bamlist.txt
+
+mkdir hipstr
+
+# create bed files containing the entire contigs of interest
+grep -F -f trf_reference/contigs.txt /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta.fai | awk 'BEGIN { FS=" " } { print $1,"\t0\t"$2}' > contigs.bed
+
+samtools merge -b bamlist.txt -o merged.bam -f -L contigs.bed
+
+# Get distribution of mapping quality scores pre-filtering
+samtools view merged.bam | cut -f 5 | sort | uniq  -c | sort -n | awk '{printf("MAPQ:%s\t%d\n",$2,$1);}'  > mapq.txt
+
+# Filter mappign qualtiy
+samtools view merged.bam -h -F 256 -q 50 -b > merged_filtered2.bam
+samtools index merged_filtered2.bam
+samtools index merged.bam
 
 
-cd /group/pathogens/Alexp/microsat
-bamlist=$(find $(/usr/bin/ls -d /group/pathogens/Alexp/phylloxera/bams) | grep ".bam$" | sort | uniq | paste -s -d ',')
-/home/ap0y/HipSTR/HipSTR --bams ${bamlist} \
---fasta /group/pathogens/Alexp/genomes/phylloxera/Dv_genome_V4.0.fasta \
---regions /group/pathogens/Alexp/microsat/target_microsats.bed \
+samtools view merged_filtered2.bam | cut -f 5 | sort | uniq  -c | sort -n | awk '{printf("MAPQ:%s\t%d\n",$2,$1);}'  > mapq.txt
+
+## Remove clipped reads
+# Get samclip tool
+
+
+ samtools view -h merged_filtered2.bam | \
+ /group/pathogens/IAWS/Projects/Phylloxera/microsat/samclip/samclip --ref /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta | \
+ samtools sort > merged_filtered2_clipped.bam
+samtools index merged_filtered2_clipped.bam
+#
+## Get list of clipped reads (those with H or S in column 6)
+#samtools view merged_filtered.bam | awk '$6 ~ /H|S/{print $1}' | sort -k1,1 | uniq > names.txt
+## sort original bam on names:
+#samtools view merged_filtered.bam | sort -k1,1 > tmp.sam
+## get header
+#samtools view -H merged_filtered.bam > merged_filtered_noclipped.sam
+## outer-join (I use ctrl+v+tab to explicitly get the tab character)
+#join -t '   ' -v 1 -1 1 -2 1 tmp.sam names.txt >> merged_filtered_noclipped.sam
+## convert to bam
+#samtools view -bS merged_filtered_noclipped.sam > merged_filtered_noclipped.bam
+## index bam
+#samtools index merged_filtered_noclipped.bam
+
+# Subset bam to just the regions amplified by the microsat primers
+intersectBed -abam merged_filtered2_clipped.bam -b /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed > merged_filtered2_clipped_subset.bam
+samtools index merged_filtered2_clipped_subset.bam
+
+#rm merged_filtered_noclipped.sam
+
+# Subset bam to just the regions amplified by the microsat primers
+intersectBed -abam merged_filtered.bam -b /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed > merged_filtered_subset.bam
+samtools index merged_filtered_subset.bam
+
+# Run HIPSTR
+/home/ap0y/HipSTR/HipSTR --bams merged_filtered2.bam \
+--fasta /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta \
+--regions /group/pathogens/IAWS/Projects/Phylloxera/microsat/trf_ssr_edited.bed \
 --str-vcf str_calls.vcf.gz \
---viz-out str_calls.viz.gz
+--viz-out str_calls.viz.gz \
+--max-flank-indel 0.15 \
+--min-reads 100 \
+--max-str-len 100 \
+--min-flank-freq 0.01 \
+--output-filters \
+--log log.txt 
 
-module load VCFtools/0.1.16-intel-2019a-Perl-5.28.1
 
-# Create tranposed output files for each SNP
-strlist=$(awk -F '\t' '{print $6}' target_microsats.bed)
-mkdir hipstr_results
-for s in ${strlist}; do
-  vcftools --gzvcf str_calls.vcf.gz --snp $s --recode --recode-INFO-all --stdout | tail -n 2 | awk -f transpose.awk > hipstr_results/$s.txt
-done
+
+
+#--regions /group/pathogens/IAWS/Projects/Phylloxera/microsat/trf_reference/final_trf_strs.bed \
+#--regions /group/pathogens/IAWS/Projects/Phylloxera/microsat/target_microsats_merged.bed \
+#--regions /group/pathogens/IAWS/Projects/Phylloxera/microsat/trf_reference/final_trf_strs.bed \
+
+# Process logs to find why samples were removed
+cat log.txt | grep 'Processing region\|Filtered'
+
+# Filter calls
+python /home/ap0y/HipSTR/scripts/filter_vcf.py \
+  --vcf str_calls.vcf.gz \
+  --min-call-qual 0.9 \
+  --max-call-flank-indel 0.15 \
+  --max-call-stutter 0.15 \
+	--min-call-allele-bias -5 \
+	--min-call-strand-bias -5 | \
+	bcftools norm -f /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta  | \
+	bcftools view -Oz -o str_calls_filtered.vcf.gz 
+tabix -f -p vcf str_calls_filtered.vcf.gz
+
+# Summarise filtered genotypes for each loci
+rm filt_summary.txt
+echo -e 'locus\tsamples\treason' > filt_summary.txt
+while read r; do
+  # Create regions file 
+  echo ${r} > tmp.bed
+  awk 'BEGIN { FS=" " } { print $1":"$2"-"$3}' tmp.bed > tmp.regions
+  locus=$(awk 'BEGIN { FS=" " } { print $4}' tmp.bed)
+  dat=$(bcftools query -f '[%FILTER\n]' -t $(cat tmp.regions) str_calls_filtered.vcf.gz | sort | uniq -c )
+  while IFS= read -r line; do
+    paste <(echo "$locus") <(echo "$line") | tr -s ' ' '\t' >> filt_summary.txt
+  done <<< "$dat"
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed
+cat filt_summary.txt
+
+# Summarise filtered genotypes by sample for each locus
+rm filt_table.txt
+echo -e 'locus\tsamples\treason' > filt_table.txt
+while read r; do
+  # Create regions file 
+  echo ${r} > tmp.bed
+  awk 'BEGIN { FS=" " } { print $1":"$2"-"$3}' tmp.bed > tmp.regions
+  samples=$(bcftools query -l str_calls_filtered.vcf.gz)
+  locus=$(awk 'BEGIN { FS=" " } { print $4}' tmp.bed)
+  dat=$(bcftools query -f '[%FILTER\n]' -t $(cat tmp.regions) str_calls_filtered.vcf.gz)
+  dat2=$( paste <(echo "$samples") <(echo "$dat"))
+  while IFS= read -r line; do
+    paste <(echo "$locus") <(echo "$line") | tr -s ' ' '\t' >> filt_table.txt
+  done <<< "$dat2"
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed
+cat filt_table.txt
+
+# Get qualities
+bcftools query -f '[%Q\n]'  str_calls.vcf.gz 
+
+# Make temp vcf
+cp str_calls_filtered.vcf.gz tmp.vcf.gz
+tabix -f -p vcf tmp.vcf.gz
+
+# Output fastas for first and second allele for each region
+module load MAFFT/7.453-gompi-2020a-with-extensions
+
+mkdir fasta
+while read r; do
+  # Create regions file 
+  echo ${r} > tmp.bed
+  awk 'BEGIN { FS=" " } { print $1":"$2"-"$3}' tmp.bed > tmp.regions
+  
+  # Create output filename
+  outname=$(awk 'BEGIN { FS=" " } { print $4}' tmp.bed)
+  rm ${outname}.fa
+  touch ${outname}.fa
+  for i in $(bcftools query -l tmp.vcf.gz );	do 
+      # Filter vcf by sample - keeping only pass tags
+      bcftools view tmp.vcf.gz -s ${i} -Oz | \
+      bcftools filter -i 'FMT/FILTER ="PASS"' -t $(cat tmp.regions) -Oz -o tmp2.vcf.gz
+      tabix -f -p vcf tmp2.vcf.gz
+
+      # Check if any did 
+      n_var=$(zcat tmp2.vcf.gz | grep -v "^#" | wc -l)
+      echo "$n_var variants remain in locus ${outname} for sample ${i}"
+      if [ "$n_var" -gt 0 ]; then
+        # Output first phased allele and rename headers
+        samtools faidx /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -r tmp.regions | \
+        bcftools consensus tmp2.vcf.gz -s ${i} -H 1pIu > tmp.fa
+        cat tmp.fa | sed -r "s/>/>${i}_${outname}_1_/" > allele1.fa
+  
+        
+        # Output second phased allele and rename headers
+        samtools faidx /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -r tmp.regions  | \
+        bcftools consensus tmp2.vcf.gz -s ${i} -H 2pIu > tmp.fa
+        cat tmp.fa | sed -r "s/>/>${i}_${outname}_2_/" > allele2.fa
+        
+  
+        cat allele1.fa  >> ${outname}.fa
+        cat allele2.fa  >> ${outname}.fa
+      #else
+        #echo -e ">${i}_${outname}_1_\n" >> ${outname}.fa
+        #echo -e ">${i}_${outname}_2_\n" >> ${outname}.fa
+      fi
+  done
+  # Align outputs
+  mafft --maxiterate 1000 --localpair ${outname}.fa > ${outname}_aligned.fa
+  mv ${outname}_aligned.fa fasta/.
+  rm ${outname}.fa
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed
+
+# Align each set of outputs
 
 # Visualise results with VizAlnPdf
+deactivate
+module purge
+module load Python/3.8.2-GCCcore-9.3.0 
+source ~/hipstr/bin/activate
+module load SAMtools/1.15-GCC-11.2.0
+module load BCFtools/1.15-GCC-11.2.0
+
+# Install python dependencies
+pip install reportlab 
+pip install svglib
+pip install PyVCF
+
+#cp str_calls_final.vcf.gz  str_calls.viz.gz
 tabix -p vcf str_calls.viz.gz
 
-/home/ap0y/HipSTR/VizAlnPdf str_calls.viz.gz contig_918 485551 HGMFWDSXY_Y21S0015-dv15g1vaitc8151 viz_HGMFWDSXY_Y21S0015-dv15g1vaitc8151 3
+
+mkdir viz
+mkdir viz/viz_all
+zcat str_calls.viz.gz | awk 'BEGIN { FS=" " } { print $1, $2, $3}' | grep -v ALL | sort | uniq > viz_list_loci
+
+# Plot seperately for each loci
+while read r; do
+  # Create regions file 
+  echo ${r} > tmp.bed
+  contig=$(awk 'BEGIN { FS=" " } { print $1}' tmp.bed)
+  start_pos=$(awk 'BEGIN { FS=" " } { print $2}' tmp.bed)
+  end_pos=$(awk 'BEGIN { FS=" " } { print $3}' tmp.bed)
+  ssr=$(cat /group/pathogens/IAWS/Projects/Phylloxera/microsat/trf_reference/final_trf_strs.bed  | grep ${contig} | grep ${start_pos} | awk 'BEGIN { FS=" " } { print $6}')
+  #let start_pos-=10
+  # Make plot
+  /home/ap0y/HipSTR/VizAln str_calls.viz.gz ${contig} ${start_pos} 2> std_err
+  outfile=$(cat std_err | grep -o -P '(?<=Please open ).*(?= using a)')
+  mv -f "${outfile}" /group/pathogens/IAWS/Projects/Phylloxera/microsat/viz/viz_all/${ssr}.html
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/viz_list_loci
+
+mkdir viz/viz_samples
+zcat str_calls.viz.gz | awk 'BEGIN { FS=" " } { print $1, $2, $3, $4}' | grep -v ALL | sort | uniq > viz_list_samples
+# Plot seperately for each sample and loci
+while read r; do
+  # Create regions file 
+  echo ${r} > tmp.bed
+  contig=$(awk 'BEGIN { FS=" " } { print $1}' tmp.bed)
+  start_pos=$(awk 'BEGIN { FS=" " } { print $2}' tmp.bed)
+  end_pos=$(awk 'BEGIN { FS=" " } { print $3}' tmp.bed)
+  sample=$(awk 'BEGIN { FS=" " } { print $4}' tmp.bed)
+  ssr=$(cat trf_reference/final_trf_strs.bed  | grep ${contig} | grep ${start_pos} | awk 'BEGIN { FS=" " } { print $6}')
+  # Make plot
+  /home/ap0y/HipSTR/VizAlnPdf str_calls.viz.gz ${contig} ${start_pos}  ${sample} viz/viz_samples/${ssr}_${sample} 3 
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/viz_list_samples
 ```
 
-# Process HipSTR output
+## Genotype flanks with GATK
+
+### Make BED file of flanks
+
+```{r}
+flank_bed <- read_table("trf_ssr_edited.bed", col_names = c("contig", "start", "end", "class", "motif_n", "name", "motif" )) %>%
+  left_join(microsat_primers %>% dplyr::select(name, contig, aln_start, aln_end)) %>%
+  group_by(contig) %>%
+  group_modify(~{
+    left_flank <- .x %>%
+      dplyr::select(start=aln_start, end=start, name) %>%
+      mutate(end = end-10)
+    right_flank <- .x %>%
+      dplyr::select(start=end, end=aln_end, name)%>%
+      mutate(start = start+10)
+    bind_rows(left_flank, right_flank)
+  })
+
+# Write out bed positions file of flanks only
+flank_bed %>% 
+  write_tsv("flank_sequences.bed", col_names = NA)
+
+
+```
+
+### Run GATK
+
+```{bash gatk}
+cd /group/pathogens/IAWS/Projects/Phylloxera/microsat
+
+# Genotype flanking sequences with GATK
+module purge
+module load GATK/4.1.9.0-GCCcore-9.3.0-Java-1.8
+module load SAMtools/1.10-GCC-8.2.0-2.31.1
+module load BCFtools/1.12-GCC-9.3.0
+
+# Find the regions of the microsattelite bed that arent the actual ssrs
+dos2unix flank_sequences.bed
+module load bedops/2.4.35
+#bedops --partition <(sort-bed microsats.bed) <(sort-bed trf_ssr_edited.bed) | bedops --not-element-of 1 - <(sort-bed #trf_ssr_edited.bed) > flanks.bed
+
+# Create intervals file from bed
+gatk BedToIntervalList -I /group/pathogens/IAWS/Projects/Phylloxera/microsat/flank_sequences.bed  -O /group/pathogens/IAWS/Projects/Phylloxera/microsat/flank_sequences.interval_list -SD /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.dict
+	
+# Call variants on a per sample basis using GATK
+mkdir gvcf
+samtools view -H merged_filtered2.bam | grep '^@RG' | sed "s/.*SM:\([^\t]*\).*/\1/g" | uniq > sample_names.txt
+
+while read s; do
+gatk --java-options "-Xmx38G" HaplotypeCaller \
+  -R /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta \
+  -I merged_filtered2.bam \
+  -O gvcf/$s.g.vcf.gz \
+  --intervals /group/pathogens/IAWS/Projects/Phylloxera/microsat/flank_sequences.interval_list \
+  --sample-name $s \
+  --native-pair-hmm-threads 5 \
+  --min-base-quality-score 15 \
+  -ERC GVCF
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/sample_names.txt
+
+# Combine gvcfs
+gatk CombineGVCFs \
+ -R /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta  \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv10g20vaitc8155.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv14g38vaitc8157.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv15g1vaitc8151.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv18g4vaitc8152.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv21g19vaitc8154.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv22g19vaitc8154.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv25g30vaitc8156.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv26g30vaitc8156.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv27g38vaitc8157.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv2g1vaitc8151.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv5g7vaitc8153.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv6g7vaitc8153.g.vcf.gz \
+ --variant gvcf/HGMFWDSXY_Y21S0015-dv9g20vaitc8155.g.vcf.gz \
+ --variant gvcf/SRR10418406_West_Virginia_USA.g.vcf.gz \
+ --variant gvcf/SRR10418407_Virginia_2_USA.g.vcf.gz \
+ --variant gvcf/SRR10418408_Virginia_1_USA.g.vcf.gz \
+ --variant gvcf/SRR10418409_Pennsylvania_USA.g.vcf.gz \
+ --variant gvcf/SRR10418410_New_York_USA.g.vcf.gz \
+ --variant gvcf/SRR10418411_Illinois_USA.g.vcf.gz \
+ --variant gvcf/SRR10418412_Wisconsin_USA.g.vcf.gz \
+ --variant gvcf/SRR10418413_Arizona_USA.g.vcf.gz \
+ --variant gvcf/SRR10418414_Australia.g.vcf.gz \
+ --variant gvcf/SRR10418415_Uruguay.g.vcf.gz \
+ --variant gvcf/SRR10418416_Armenia.g.vcf.gz \
+ --variant gvcf/SRR10418417_Romania.g.vcf.gz \
+ --variant gvcf/SRR10418418_Austria.g.vcf.gz \
+ --variant gvcf/SRR10418419_Palatinat_Germany.g.vcf.gz \
+ --variant gvcf/SRR10418420_south-west_France.g.vcf.gz \
+ --variant gvcf/SRR10418421_Massasuchetts_USA.g.vcf.gz \
+ --variant gvcf/SRR10418422_Washington_USA.g.vcf.gz \
+ --variant gvcf/SRR10418423_California_USA.g.vcf.gz \
+ --intervals /group/pathogens/IAWS/Projects/Phylloxera/microsat/flank_sequences.interval_list \
+ -O cohort.g.vcf.gz
+
+# Joint call using GATK
+
+#Genotype gvcfs 
+gatk IndexFeatureFile \
+     -I cohort.g.vcf.gz
+gatk --java-options "-Xmx38G" GenotypeGVCFs \
+  -R /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta \
+  -V cohort.g.vcf.gz  \
+  --intervals /group/pathogens/IAWS/Projects/Phylloxera/microsat/flank_sequences.interval_list \
+  -O ssr_flanks.vcf.gz 
+  
+# Filter variants
+# Hard-filter SNPs
+gatk VariantFiltration \
+--verbosity ERROR \
+-V ssr_flanks.vcf.gz \
+-filter "QD < 2.0" --filter-name "QD2" \
+-filter "QUAL < 30.0" --filter-name "QUAL30" \
+-filter "FS > 200.0" --filter-name "FS200" \
+-filter "ReadPosRankSum < -20.0" --filter-name "ReadPosRankSum-20" \
+-O ssr_flanks_tmp.vcf.gz
+
+# Transform filtered genotypes to nocall and keep only those with <5% missing data
+gatk SelectVariants \
+--verbosity ERROR \
+-V ssr_flanks_tmp.vcf.gz \
+--exclude-filtered \
+-O ssr_flanks_filtered.vcf.gz
+
+
+# Output fastas for first and second allele for each region
+module load MAFFT/7.453-gompi-2020a-with-extensions
+
+# Make temp vcf
+#cp ssr_flanks_tmp.vcf.gz tmp.vcf.gz
+cp ssr_flanks.vcf.gz tmp.vcf.gz
+
+tabix -f -p vcf tmp.vcf.gz
+
+
+mkdir gatk_fasta
+
+r=$(sed -n '1p' < /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed)
+
+while read r; do
+  echo ${r}
+  # Create regions file 
+  echo ${r} > tmp.bed
+  awk 'BEGIN { FS=" " } { print $1":"$2"-"$3}' tmp.bed > tmp.regions
+  
+  # Create output filename
+  outname=$(awk 'BEGIN { FS=" " } { print $4}' tmp.bed)
+  rm ${outname}.fa
+  touch ${outname}.fa
+  for i in $(bcftools query -l tmp.vcf.gz );	do 
+  
+      # Subset vcf to sample
+        bcftools view tmp.vcf.gz -s ${i} -t $(cat tmp.regions) -Oz -o tmp2.vcf.gz
+  
+      # Filter vcf by sample - keeping only pass tags
+     # bcftools view tmp.vcf.gz -s ${i} -Oz | \
+      #bcftools filter -i 'FILTER ="PASS"' -t $(cat tmp.regions) -Oz -o tmp2.vcf.gz
+      tabix -f -p vcf tmp2.vcf.gz
+
+      # Check if any did 
+      n_var=$(zcat tmp2.vcf.gz | grep -v "^#" | wc -l)
+      echo "$n_var variants remain in locus ${outname} for sample ${i}"
+      # Output first phased allele and rename headers
+      samtools faidx /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -r tmp.regions | \
+      bcftools consensus tmp2.vcf.gz -s ${i} -H 1pIu > tmp.fa
+      cat tmp.fa | sed -r "s/>/>${i}_${outname}_1_/" > allele1.fa
+  
+      
+      # Output second phased allele and rename headers
+      samtools faidx /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -r tmp.regions  | \
+      bcftools consensus tmp2.vcf.gz -s ${i} -H 2pIu > tmp.fa
+      cat tmp.fa | sed -r "s/>/>${i}_${outname}_2_/" > allele2.fa
+      
+  
+      cat allele1.fa  >> ${outname}.fa
+      cat allele2.fa  >> ${outname}.fa
+  done
+  # Align outputs
+  mafft --maxiterate 1000 --localpair ${outname}.fa > ${outname}_aligned.fa
+  mv ${outname}_aligned.fa gatk_fasta/.
+  rm ${outname}.fa
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed
+
+```
+
+## Combine hipSTR and GATK calls
+
+```{bash}
+# Make temp vcf
+cp str_calls_filtered.vcf.gz hipstr_calls.vcf.gz
+cp ssr_flanks_filtered.vcf.gz gatk_calls.vcf.gz
+tabix -f -p vcf hipstr_calls.vcf.gz
+tabix -f -p vcf gatk_calls.vcf.gz
+
+
+# First filter GATK to file to remove samples where 
+module load MAFFT/7.453-gompi-2020a-with-extensions
+module load picard/2.21.4-Java-1.8
+
+r=$(sed -n '5p' < /group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed)
+
+# HGMFWDSXY_Y21S0015-dv18g4vaitc8152 for contig_4038 is good test
+
+mkdir combined_fasta
+while read r; do
+  # Create regions file 
+  echo ${r} > tmp.bed
+  awk 'BEGIN { FS=" " } { print $1":"$2"-"$3}' tmp.bed > tmp.regions
+  
+  # Create output filename
+  outname=$(awk 'BEGIN { FS=" " } { print $4}' tmp.bed)
+  rm ${outname}.fa
+  touch ${outname}.fa
+  for i in $(bcftools query -l tmp.vcf.gz );	do 
+      # Filter hipstr vcf by sample - keeping only pass tags
+      bcftools view hipstr_calls.vcf.gz -s ${i} -Oz | \
+      bcftools filter -i 'FMT/FILTER ="PASS"' -t $(cat tmp.regions) -Oz -o hipstr_tmp.vcf.gz
+      tabix -f -p vcf hipstr_tmp.vcf.gz
+      
+      #bcftools view hipstr_calls.vcf.gz -s ${i} -Oz | \
+      #bcftools filter -i 'FMT/FILTER ="PASS"' -t $(cat tmp.regions) -Oz -o hipstr_tmp.vcf.gz
+      #tabix -f -p vcf hipstr_tmp.vcf.gz
+      
+      # Sort HIPSTR vcf
+      java -jar $EBROOTPICARD/picard.jar SortVcf \
+      I=hipstr_tmp.vcf.gz \
+      O=hipstr_tmp2.vcf.gz > /dev/null 2>&1
+
+      
+      # Subset the GATK vcf 
+      #bcftools view gatk_calls.vcf.gz -s ${i} -Oz | \
+      #bcftools filter -i 'FILTER ="PASS"' -t $(cat tmp.regions) -Oz -o gatk_tmp.vcf.gz
+      # SHould i keep some filters-  maybe quality?
+      bcftools view gatk_calls.vcf.gz -s ${i} -t $(cat tmp.regions) -Oz -o gatk_tmp.vcf.gz
+      tabix -f -p vcf gatk_tmp.vcf.gz
+      
+      # Sort gatk vcf
+      java -jar $EBROOTPICARD/picard.jar SortVcf \
+      I=gatk_tmp.vcf.gz \
+      O=gatk_tmp2.vcf.gz > /dev/null 2>&1
+      
+      # Need to filter to make sure the gatk genotype is not between the two microsattelite positions
+      
+      # Check if any did 
+      n_hip=$(zcat hipstr_tmp2.vcf.gz | grep -v "^#" | wc -l)
+      n_gat=$(zcat gatk_tmp2.vcf.gz | grep -v "^#" | wc -l)
+
+      echo "$n_hip hipstr variants remain in locus ${outname} for sample ${i}"
+      echo "$n_gat gatk variants remain in locus ${outname} for sample ${i}"
+      if [ "$n_hip" -gt 0 ]; then
+      
+       # Combine with GATK variant list - if there are any variants in gatk
+        if [ "$n_gat" -gt 0 ]; then
+            # Combine vcfs
+            java -jar $EBROOTPICARD/picard.jar MergeVcfs \
+            I=hipstr_tmp2.vcf.gz \
+            I=gatk_tmp2.vcf.gz \
+            O=merged_tmp.vcf.gz > /dev/null 2>&1
+        else 
+            mv hipstr_tmp2.vcf.gz merged_tmp.vcf.gz
+        fi
+        tabix -f -p vcf merged_tmp.vcf.gz
+      
+        # Output first phased allele and rename headers
+        samtools faidx /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -r tmp.regions | \
+        bcftools consensus merged_tmp.vcf.gz -s ${i} -H 1 > tmp.fa
+        cat tmp.fa | sed -r "s/>/>${i}_${outname}_1_/" > allele1.fa
+
+        
+        # Output second phased allele and rename headers
+        samtools faidx /group/referencedata/mspd-db/genomes/insect/daktulosphaera_vitifoliae/V4/Dv_genome_V4.0.fasta -r tmp.regions  | \
+        bcftools consensus merged_tmp.vcf.gz -s ${i} -H 2 > tmp.fa
+        cat tmp.fa | sed -r "s/>/>${i}_${outname}_2_/" > allele2.fa
+        
+  
+        cat allele1.fa  >> ${outname}.fa
+        cat allele2.fa  >> ${outname}.fa
+        #else
+        #echo -e ">${i}_${outname}_1_\n" >> ${outname}.fa
+        #echo -e ">${i}_${outname}_2_\n" >> ${outname}.fa
+      fi
+  done
+  # Align outputs
+  mafft --maxiterate 1000 --localpair ${outname}.fa > ${outname}_aligned.fa
+  mv ${outname}_aligned.fa combined_fasta/.
+  rm ${outname}.fa
+done </group/pathogens/IAWS/Projects/Phylloxera/microsat/microsats.bed
+
+```
+
+# Visualise outputs
+
+```{R}
+# Read in reference alleles
+ref_allele_seqs <- readDNAStringSet("doc/ref_ssrs.fa")
+names(ref_allele_seqs) <- names(ref_allele_seqs) %>% str_replace("DVSSR-", "DVSSR")
+
+ref_alleles <- microsat_primers %>% 
+  dplyr::filter(preferred == TRUE) %>%
+  pull(name) %>% 
+  tolower()
+
+# Read in full sequence region from reference genome
+refseq_regions <- readDNAStringSet("microsats.fa")
+
+# read in just microsattelite region from reference genome
+refseq_ssrs  <- readDNAStringSet("final_trf_strs.fa")
+
+
+library(DECIPHER)
+i=1
+
+for (i in 1:length(ref_alleles)){
+  print(ref_alleles[i])
+  # Get ref allele
+  ref_seq <- ref_allele_seqs[str_detect(tolower(names(ref_allele_seqs)), ref_alleles[i])]
+  ref_seq_id <- names(ref_seq) %>%
+    str_remove("\\| Dak.*$")%>%
+    str_remove("^.*gb\\|")
+  names(ref_seq) <- paste0(str_to_upper(ref_alleles[i]), "_", ref_seq_id)
+  
+  # Read in fastas
+  combined_fastas <- fs::dir_ls("combined_fasta/", glob="*.fa") 
+  
+  # Use the gatk fasta for DVIT4 as it failed with HIPSTR
+  gatk_fastas <- fs::dir_ls("gatk_fasta/", glob="*.fa") 
+  
+  fastas <- c(combined_fastas[!str_detect(combined_fastas, "Dvit4")], gatk_fastas[str_detect(gatk_fastas, "Dvit4")])
+  genotyped_seqs <- RemoveGaps(readDNAStringSet(fastas[str_detect(tolower(fastas), ref_alleles[i])]))
+  
+  # Keep only australian ones
+  genotyped_seqs <- genotyped_seqs[str_detect(names(genotyped_seqs), "vaitc")]
+  
+  if(length(genotyped_seqs) > 0) {
+    # Rename sequences
+    vaitc <- names(genotyped_seqs) %>%
+      str_extract("vaitc(.+?)_") %>%
+      str_remove("_") %>%
+      str_to_upper()
+    genotype <- names(genotyped_seqs) %>%
+      str_extract("g(.+?)v") %>%
+      str_remove("v")
+    haplotype <- names(genotyped_seqs) %>%
+      str_extract("_[0-9]_") %>%
+      str_remove_all("_")
+    
+    names(genotyped_seqs) <- paste0(vaitc, "_", genotype, "_",haplotype)
+      
+    # get full sequence region from reference genome
+    refseq_region <- refseq_regions[str_detect(tolower(names(refseq_regions)), ref_alleles[i])]
+    names(refseq_region) <- names(refseq_region) %>%
+      str_replace("^.*::", "DvgenomeV4_")
+    # get just microsattelite region from reference genome
+    refseq_ssr <- refseq_ssrs[str_detect(tolower(names(refseq_ssrs)), ref_alleles[i])]
+  
+    # Get primers
+    Fprimer <- microsat_primers %>%
+      filter(tolower(name) == ref_alleles[i]) %>%
+      pull(forward) %>%
+      DNAStringSet()
+    names(Fprimer) <- "Fprimer"
+    
+    Rprimer <- microsat_primers %>%
+      filter(tolower(name) == ref_alleles[i]) %>%
+      pull(reverse)%>%
+      DNAStringSet() %>%
+      reverseComplement()
+    names(Rprimer) <- "Rprimer"
+  
+    #Orient nucleotides
+    oriented <- DECIPHER::OrientNucleotides(c(ref_seq, refseq_region,genotyped_seqs))
+    aln <- DECIPHER::AlignSeqs(oriented)
+    
+    # color detected microsattelite
+    dir.create("output/alignments/html", recursive = TRUE)
+    BrowseSeqs(aln, 
+              #highlight=1,
+              patterns=
+              c(refseq_ssr,reverseComplement(refseq_ssr),
+              Fprimer, reverseComplement(Fprimer),
+              Rprimer, reverseComplement(Rprimer)),
+              htmlFile=paste0("output/alignments/html/combined_",ref_alleles[i],".html"),
+              openURL = FALSE)
+    
+    # Write out alignment
+    dir.create("output/alignments/fasta", recursive = TRUE)
+    writeXStringSet(aln, filepath=paste0("output/alignments/fasta/final_",ref_alleles[i],".fa"))
+  }
+}
+
+```
+
+# Compare to ABI data
 
 
 ```{r}
-# Parse Hipstr outputs
-hipstr_res <- fs::dir_ls("output/hipstr_results/", glob="*.txt") %>%
+# Make plot of why samples were removed 
+filt_tab <- read_tsv("output/filt_table.txt")%>%
+  mutate(dataset = case_when(
+    str_detect(samples, "vaitc") ~ "VAITC",
+    TRUE ~ "Rispe2020"
+    ), 
+    dataset = factor(dataset, levels=c("VAITC", "Rispe2020")),
+    samples = samples %>% 
+          str_remove("^(.*?)_")%>% 
+           str_remove("^(.*?)-")) 
+
+filt_tab %>%
+  filter(reason == "PASS") %>%
+  group_by(locus, dataset) %>%
+  summarise(n=n_distinct(samples))
+
+filt_tab %>% 
+  ggplot(aes(x = locus, y = samples, fill=reason)) +
+  geom_tile() + 
+  facet_grid(dataset~., scales="free_y", space="free_y", drop=TRUE) +
+  scale_fill_manual(values = c(
+    "PASS" = "#4daf4a",
+    "ALLELE_BIAS" = "#f781bf",
+    "FLANK_ASSEMBLY_CYCLIC" = "#ff7f00",
+    "FLANK_ASSEMBLY_INDEL" = "#984ea3",
+    "FLANK_INDEL_FRAC" = "#a65628",
+    "NO_READS" = "#e41a1c",
+    "QUALITY" = "#ffff33",
+    "STUTTER_FRACTION" = "#999999"
+  )) +
+  labs(x = "SSR Locus",
+       y = "Sample",
+       fill = "Filter")
+
+# Summarise which strains could have genotype data obtained for them.
+genotype_summary <- filt_tab %>%
+  dplyr::filter(dataset == "VAITC") %>%
+  mutate(genotype = samples %>% 
+           str_remove("vaitc.*$")%>%
+           str_replace("^.*g", "G")) %>%
+  mutate(pass = reason=="PASS") %>%
+  group_by(locus, genotype) %>%
+  summarise(pass = any(pass==TRUE)) 
+
+genotype_summary %>%
+  ungroup()%>%
+  mutate(total = n_distinct(genotype)) %>%
+  group_by(locus, total) %>%
+  dplyr::summarise(success = sum(pass == TRUE))
+
+# Replace this with those from the reference fastas? 
+# Output alignments?
+
+#exp_length <- readxl::read_xlsx("doc/PhylloxeraGenotypes_DistanceTree.xlsx", #sheet="Data", skip = 2) %>%
+#  magrittr::set_colnames(c("genotype","status", "Dvit4_1", "DVit4_2", "Dvit6_1", #"Dvit6_2", "Dvit1_1", "Dvit1_2", "Dvit5_1", "Dvit5_2", "Dvit5_2","Dvit3_1", #"Dvit3_2", "Dvit2_1", "Dvit2_2")) %>%
+#  pivot_longer(-c("genotype", "status"),
+#               names_to="locus",
+#               values_to="exp_length") %>%
+#  mutate(genotype = str_replace(genotype, "G0", "G"))%>%
+#  mutate(strand = locus %>% str_remove("^.*_")%>% as.numeric(),
+#         locus = locus %>% str_remove("_.*$"))
+
+exp_length <- readxl::read_xlsx("doc/AlleleSizes.xlsx",range = "A11:Q18" ) %>%
+  dplyr::rename(genotype = Fluoroscent) %>%
+   pivot_longer(-c("genotype"),
+               names_to="locus",
+               values_to="exp_length") %>%
+  mutate(genotype = str_replace(genotype, "G0", "G"))%>%
+  mutate(strand = locus %>% str_remove("^.*_")%>% as.numeric(),
+         locus = locus %>% str_remove("_.*$")) %>%
+  mutate(exp_length = round(exp_length))
+
+# Read in fastas and get size
+seqs <- fs::dir_ls("combined_fasta/", glob="*.fa") %>%
   purrr::map(function(x){
-    lines <- readLines(x)
-    print(x)
-    
-    # Process header
-    header_length <- which(str_detect(lines, "^FORMAT"))
-    if(length(header_length) == 0) { return(NULL)}
-    header <- lines[1:header_length]
-    
-    ref_allele <- header[str_detect(header, "^REF")] %>%
-      str_remove("^.*\t")
-    alt_alleles <- header[str_detect(header, "^ALT")] %>%
-      str_remove("^.*\t") %>%
-      str_split(",") %>%
-      unlist()
-    info <- header[str_detect(header, "^INFO")] %>%
-      str_remove("^.*\t")%>%
-      str_split(";")%>%
-      unlist()
-    bp_diffs <- info[str_detect(info, "^BPDIFFS=")] %>%
-      str_remove("^BPDIFFS=") %>%
-      str_split(",") %>%
-      unlist() %>%
-      as.numeric()
-    format <- header[str_detect(header, "FORMAT\t")] %>%
-      str_remove("FORMAT\t") %>%
-      str_split(":") %>%
-      unlist() 
-    allele_list <- enframe(c(ref_allele, alt_alleles), name="allele", value="allele_seq") %>%
-      mutate(bp_diff = c(0, bp_diffs))
-    # Process genotypes
-    geno <- read_tsv(lines[header_length+1:length(lines)], col_names =c("sample_id", "format")) %>%
-      filter(!is.na(sample_id)) %>%
-      tidyr::separate(format, into=format, sep=":") %>%
-      tidyr::separate(GT, into=c("allele_1", "allele_2"), remove = FALSE) %>%
-      mutate(allele_1 = as.numeric(allele_1) +1, # move zero indexing to 1 indexing
-             allele_2 = as.numeric(allele_2) +1
-             ) %>%
-      left_join(allele_list %>% dplyr::rename(allele_1 = allele, allele_seq1 = allele_seq, bp_diff1 = bp_diff))%>%
-      left_join(allele_list %>% dplyr::rename(allele_2 = allele, allele_seq2 = allele_seq, bp_diff2 = bp_diff)) %>%
-      dplyr::select(-allele_1, -allele_2)
-    
+    if (file.size(x) > 0){
+      insect::readFASTA(x)
+    } else {
+      NULL
+    }
   }) %>%
-  bind_rows(.id="locus") %>%
-  mutate(locus = basename(locus) %>% str_remove(".txt")) %>%
-  na_if(".") %>%
-  filter(!is.na(GT))
-# Maybe only consider those genotypes where q == 1?
+  taxreturn::concat_DNAbin()
+
+# View alignments
+BrowseSeqs(taxreturn::DNAbin2DNAstringset(seqs))
+
+# Subset to australian strains and remove gaps for counting length
+seqs <- seqs[str_detect(names(seqs), "vaitc|Australia")]
+seqs <- ape::del.gaps(seqs)
+
+obs_length <- enframe(names(seqs), value="name", name=NULL) %>%
+  mutate(name = name %>% str_replace("Australia_", "Australia-SRR10418414gA7_"),
+         contig = str_remove(name, "^.*contig_"),
+         name = name %>%
+            str_remove("_contig.*$") %>%
+            str_remove("^.*-"),
+         locus = name %>% str_remove("^.*?_"),
+         name = name %>% 
+           str_remove("_.*$") %>%
+           str_remove("vaitc.*$"),
+         sample_id = name %>% str_remove("g.*$"),
+         genotype = name %>% str_remove(sample_id) %>% toupper(),
+         strand = locus %>% str_remove("^.*_") %>% as.numeric(),
+         locus = locus %>% str_remove("_.*$")) %>%
+  dplyr::select(-name) %>%
+  mutate(length = lengths(seqs))
+
+
+joint <- obs_length %>%
+  group_by(sample_id, locus)%>%
+  group_split() %>%
+  purrr::map(function(x){ # Make sure the strands match (i.e. length differences are closest)
+    potential <- exp_length %>%
+      filter(genotype %in% x$genotype,
+             locus %in% x$locus) %>%
+      arrange(strand)
+    if(all(!is.na(potential$exp_length)) & length(unique(potential$exp_length)) > 1){
+      first_match <- x %>% 
+        mutate(resid = abs(potential$exp_length-length)) %>%
+        mutate(best_hap_match = which(resid==min(abs(potential$exp_length-length))))
+      
+      if(length(unique(first_match$best_hap_match)) > 1){
+        out <- first_match %>%
+        mutate(strand = best_hap_match,
+               matched = strand==best_hap_match) %>%
+        dplyr::select(-best_hap_match, -resid) %>%
+        left_join(potential, by = c("locus", "genotype", "strand"))
+        return(out)
+      }else{
+        out <- first_match %>%
+          arrange(resid) %>%
+          mutate(best_hap_match2 = row_number(),
+                 strand = best_hap_match2,
+                 matched = strand==best_hap_match2) %>%
+          dplyr::select(-best_hap_match, -best_hap_match2, -resid) %>%
+          left_join(potential, by = c("locus", "genotype", "strand")) %>%
+          arrange(strand)
+        return(x)
+      }
+    } else{
+      return(x)
+    }
+  }) %>%
+  bind_rows()  %>%
+  mutate(residual = abs(exp_length - length))
+
+# Calculate RMSE between expected and observed allele lengths
+joint %>%
+  rmse(truth=exp_length, estimate=length)
+
+# Plot 2 - Faceted, allele size Y axis, sample x axis
+joint %>%
+    pivot_longer(cols=ends_with("length"),
+               names_to = "type",
+               values_to="length") %>%
+  mutate(type = type %>% str_replace("exp_length", "Capilliary") %>% str_replace("length", "Illumina")) %>%
+  mutate(locus = factor(locus, levels=c("Dvit1", "Dvit2", "Dvit3", "Dvit4", "Dvit5", "Dvit6"))) %>%
+  ggplot(aes(y = length, x = sample_id, colour=type, shape=as.factor(strand))) +
+  geom_point(position=position_dodge(width=0.5), alpha=0.7) +
+  scale_color_brewer(palette="Set1")+
+  facet_grid(locus~., scales="free_y", drop = FALSE)+
+  labs(x = "Sample",
+       y = "Allele size (bp)") +
+  base_theme +
+  theme(legend.position = "bottom") +
+  labs(shape= "Alelle",
+       colour = "Technology")
+
+
+# Create tree of both datasets
+
+
+# Format same as marks table and output
+formatted_sizes <- joint %>%
+  mutate(locus = paste0(locus, "_", strand)) %>%
+  dplyr::filter(genotype %in% c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")) %>%
+  group_by(genotype, locus) %>%
+  dplyr::summarise(length = paste0(sort(unique(length)), collapse = "/")) %>%
+  dplyr::select(locus, genotype, length) %>%
+  pivot_wider(names_from = "locus",
+              values_from = "length") %>%
+  dplyr::select(any_of(c(
+    "genotype", 
+    "Dvit1_1", "Dvit1_2", 
+    "Dvit2_1", "Dvit2_2",
+    "Dvit3_1", "Dvit3_2",
+    "Dvit4_1", "Dvit4_2",
+    "Dvit5_1", "Dvit5_2",
+    "Dvit6_1", "Dvit6_2",
+    "DVSSR3_1", "DVSSR3_2",
+    "DVSSR4_1", "DVSSR4_2"
+    ))) %>%
+  arrange(match(genotype, c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")))
+
+write_csv(formatted_sizes, "output/formatted_sizes_new.csv")
+```
+
+
+# Align against reference alleles
+
+```{r}
+
+exp_length <- readxl::read_xlsx("doc/AlleleSizes.xlsx",range = "A11:Q18" ) %>%
+  dplyr::rename(genotype = Fluoroscent) %>%
+   pivot_longer(-c("genotype"),
+               names_to="locus",
+               values_to="exp_length") %>%
+  mutate(genotype = str_replace(genotype, "G0", "G"))%>%
+  mutate(strand = locus %>% str_remove("^.*_")%>% as.numeric(),
+         locus = locus %>% str_remove("_.*$")) %>%
+  mutate(exp_length = round(exp_length))
+
+# Read in fastas and get size
+seqs <- fs::dir_ls("gatk_fasta/", glob="*.fa") %>%
+  purrr::map(function(x){
+    if (file.size(x) > 0){
+      insect::readFASTA(x)
+    } else {
+      NULL
+    }
+  }) %>%
+  taxreturn::concat_DNAbin()
+
+# View alignments
+BrowseSeqs(taxreturn::DNAbin2DNAstringset(seqs))
+
+# Subset to australian strains and remove gaps for counting length
+seqs <- seqs[str_detect(names(seqs), "vaitc|Australia")]
+seqs <- ape::del.gaps(seqs)
+
+obs_length <- enframe(names(seqs), value="name", name=NULL) %>%
+  mutate(name = name %>% str_replace("Australia_", "Australia-SRR10418414gA7_"),
+         contig = str_remove(name, "^.*contig_"),
+         name = name %>%
+            str_remove("_contig.*$") %>%
+            str_remove("^.*-"),
+         locus = name %>% str_remove("^.*?_"),
+         name = name %>% 
+           str_remove("_.*$") %>%
+           str_remove("vaitc.*$"),
+         sample_id = name %>% str_remove("g.*$"),
+         genotype = name %>% str_remove(sample_id) %>% toupper(),
+         strand = locus %>% str_remove("^.*_") %>% as.numeric(),
+         locus = locus %>% str_remove("_.*$")) %>%
+  dplyr::select(-name) %>%
+  mutate(length = lengths(seqs))
+
+
+joint <- obs_length %>%
+  group_by(sample_id, locus)%>%
+  group_split() %>%
+  purrr::map(function(x){ # Make sure the strands match (i.e. length differences are closest)
+    potential <- exp_length %>%
+      filter(genotype %in% x$genotype,
+             locus %in% x$locus) %>%
+      arrange(strand)
+    if(all(!is.na(potential$exp_length)) & length(unique(potential$exp_length)) > 1){
+      first_match <- x %>% 
+        mutate(resid = abs(potential$exp_length-length)) %>%
+        mutate(best_hap_match = which(resid==min(abs(potential$exp_length-length))))
+      
+      if(length(unique(first_match$best_hap_match)) > 1){
+        out <- first_match %>%
+        mutate(strand = best_hap_match,
+               matched = strand==best_hap_match) %>%
+        dplyr::select(-best_hap_match, -resid) %>%
+        left_join(potential, by = c("locus", "genotype", "strand"))
+        return(out)
+      }else{
+        out <- first_match %>%
+          arrange(resid) %>%
+          mutate(best_hap_match2 = row_number(),
+                 strand = best_hap_match2,
+                 matched = strand==best_hap_match2) %>%
+          dplyr::select(-best_hap_match, -best_hap_match2, -resid) %>%
+          left_join(potential, by = c("locus", "genotype", "strand")) %>%
+          arrange(strand)
+        return(x)
+      }
+    } else{
+      return(x)
+    }
+  }) %>%
+  bind_rows()  %>%
+  mutate(residual = abs(exp_length - length))
+
+
+# Format same as marks table and output
+formatted_sizes <- joint %>%
+  mutate(locus = paste0(locus, "_", strand)) %>%
+  dplyr::filter(genotype %in% c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")) %>%
+  group_by(genotype, locus) %>%
+  dplyr::summarise(length = paste0(sort(unique(length)), collapse = "/")) %>%
+  dplyr::select(locus, genotype, length) %>%
+  pivot_wider(names_from = "locus",
+              values_from = "length") %>%
+  dplyr::select(any_of(c(
+    "genotype", 
+    "Dvit1_1", "Dvit1_2", 
+    "Dvit2_1", "Dvit2_2",
+    "Dvit3_1", "Dvit3_2",
+    "Dvit4_1", "Dvit4_2",
+    "Dvit5_1", "Dvit5_2",
+    "Dvit6_1", "Dvit6_2",
+    "DVSSR3_1", "DVSSR3_2",
+    "DVSSR4_1", "DVSSR4_2"
+    ))) %>%
+  arrange(match(genotype, c("G1", "G4", "G7","G19", "G20","G30", "G38", "GA7")))
+
+write_csv(formatted_sizes, "output/formatted_sizes_gatk.csv")
 ```
