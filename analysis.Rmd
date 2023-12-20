@@ -156,7 +156,7 @@ microsat_primers <- tibble::tribble(
 microsat_primers %>% 
   filter(preferred) %>%
   dplyr::select(name, forward, reverse) %>%
-  write_tsv("primers.txt", col_names = NA)
+  write_tsv("output/primers.txt", col_names = NA)
 
 # Write out bed positions file
 microsat_primers %>% 
@@ -164,7 +164,7 @@ microsat_primers %>%
   dplyr::select(contig, aln_start, aln_end, name) %>%
  # mutate(start_pos = start_pos - 100,
  #        end_pos = end_pos+100) %>%
-  write_tsv("microsats.bed", col_names = NA)
+  write_tsv("output/microsats.bed", col_names = NA)
 
 
 # Filter perf results to only those detected within primer bindign sites
@@ -196,7 +196,7 @@ target_microsat %>%
     TRUE ~ seqnames
   )) %>%
   dplyr::select(contig, start, end, class, motif_n, seqnames ) %>%
-  write_tsv("target_microsats.bed", col_names = NA)
+  write_tsv("output/target_microsats.bed", col_names = NA)
 
 
 # Merge overlapping microsattelites (see analyze_overlaps.py script from the hipstr program)https://github.com/HipSTR-Tool/HipSTR-references/blob/master/scripts/analyze_overlaps.py
@@ -258,7 +258,7 @@ rng %>%
     TRUE ~ seqnames
   )) %>%
   dplyr::select(contig, start, end, class, motif_n, seqnames ) %>%
-  write_tsv("target_microsats_merged.bed", col_names = NA)
+  write_tsv("output/target_microsats_merged.bed", col_names = NA)
 
 ```
 
@@ -533,7 +533,7 @@ done </group/pathogens/IAWS/Projects/Phylloxera/microsat/viz_list_samples
 ### Make BED file of flanks
 
 ```{r}
-flank_bed <- read_table("trf_ssr_edited.bed", col_names = c("contig", "start", "end", "class", "motif_n", "name", "motif" )) %>%
+flank_bed <- read_table("output/trf_ssr_edited.bed", col_names = c("contig", "start", "end", "class", "motif_n", "name", "motif" )) %>%
   left_join(microsat_primers %>% dplyr::select(name, contig, aln_start, aln_end)) %>%
   group_by(contig) %>%
   group_modify(~{
@@ -548,7 +548,7 @@ flank_bed <- read_table("trf_ssr_edited.bed", col_names = c("contig", "start", "
 
 # Write out bed positions file of flanks only
 flank_bed %>% 
-  write_tsv("flank_sequences.bed", col_names = NA)
+  write_tsv("output/flank_sequences.bed", col_names = NA)
 
 ```
 
@@ -826,7 +826,7 @@ filt_tab %>%
   group_by(locus, dataset) %>%
   summarise(n=n_distinct(samples))
 
-filt_tab %>% 
+gg.hipstr_filt <- filt_tab %>% 
   ggplot(aes(x = locus, y = samples, fill=reason)) +
   geom_tile() + 
   facet_grid(dataset~., scales="free_y", space="free_y", drop=TRUE) +
@@ -843,6 +843,11 @@ filt_tab %>%
   labs(x = "SSR Locus",
        y = "Sample",
        fill = "Filter")
+
+# Write out plot
+pdf(file="figs/hipstr_filt.pdf", width = 11, height = 8 , paper="a4r")
+  plot(gg.hipstr_filt)
+try(dev.off(), silent=TRUE)
 
 # Summarise which strains could have genotype data obtained for them.
 genotype_summary <- filt_tab %>%
@@ -875,10 +880,10 @@ ref_alleles <- microsat_primers %>%
   tolower()
 
 # Read in full sequence region from reference genome
-refseq_regions <- readDNAStringSet("microsats.fa")
+refseq_regions <- readDNAStringSet("output/microsats.fa")
 
 # read in just microsattelite region from reference genome
-refseq_ssrs  <- readDNAStringSet("final_trf_strs.fa")
+refseq_ssrs  <- readDNAStringSet("output/final_trf_strs.fa")
 
 
 library(DECIPHER)
@@ -956,7 +961,7 @@ for (i in 1:length(ref_alleles)){
               c(refseq_ssr,reverseComplement(refseq_ssr),
               Fprimer, reverseComplement(Fprimer),
               Rprimer, reverseComplement(Rprimer)),
-              htmlFile=paste0("output/alignments/html/combined_",ref_alleles[i],".html"),
+              htmlFile=paste0("output/alignments/html/final_",ref_alleles[i],".html"),
               openURL = FALSE)
     
     # Write out alignment
@@ -1059,7 +1064,7 @@ joint %>%
   rmse(truth=exp_length, estimate=length)
 
 # Plot 2 - Faceted, allele size Y axis, sample x axis
-joint %>%
+gg.allele_diffs <- joint %>%
     filter(!is.na(exp_length)) %>%
     pivot_longer(cols=ends_with("length"),
                names_to = "type",
@@ -1077,6 +1082,11 @@ joint %>%
   labs(shape= "Alelle",
        colour = "Technology")
 
+# Write out plot
+pdf(file="figs/allele_diffs.pdf", width = 11, height = 8 , paper="a4r")
+  plot(gg.allele_diffs)
+try(dev.off(), silent=TRUE)
+  
 # Format same as marks table and output
 formatted_sizes <- joint %>%
   mutate(locus = paste0(locus, "_", strand)) %>%
@@ -1099,5 +1109,5 @@ formatted_sizes <- joint %>%
     ))) %>%
   arrange(match(genotype, c("G1", "G4", "G7","G19", "G20","G30", "G38")))
 
-write_csv(formatted_sizes, "output/formatted_sizes_new.csv")
+write_csv(formatted_sizes, "output/formatted_sizes.csv")
 ```
